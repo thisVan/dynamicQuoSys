@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>	
+    <package name="dataManage" extends="default"  namespace="/" > 
+    
+		<!-- =============================认刊书提交================================= -->
+			<action name="Renkan_saverenkan" class="com.nfledmedia.dynamicQuoSys.action.RenkanAction" method="saverenkan">
+			<!-- 添加成功 -->
+			<result name="success">/WEB-INF/pages/renkanshusuccess.jsp</result>
+			<result name="failed">/WEB-INF/pages/renkantypein.jsp</result>
+			<result name="input">/input.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>  	
+		
+			<!-- =============================收款提交================================= -->
+		<action name="shoukuan_save" class="com.nfledmedia.dynamicQuoSys.action.ShoukuanAction" method="save">
+			<!-- 保存成功 -->
+			<result name="shoukuansave_success">/WEB-INF/pages/shoukuansuccess.jsp</result>
+			<result name="shoukuansave_failure">/WEB-INF/pages/shoukuantypein.jsp</result>
+			<result name="input">/input.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		
+			<!-- =============================屏幕保存================================= -->
+		<action name="led_saveinfo" class="com.nfledmedia.dynamicQuoSys.action.LedAction" method="saveledinfo">
+			<!-- 保存成功 -->
+			<result name="ledsave_success">/WEB-INF/pages/ledsavesuccess.jsp</result>
+			<result name="ledsave_failure">/WEB-INF/pages/addpingmu.jsp</result>
+			<result name="input">/input.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="checkAccount" class="com.nfledmedia.dynamicQuoSys.action.UserAction" method="checkAccount">
+		</action>
+		<action name="addUserInfo" class="com.nfledmedia.dynamicQuoSys.action.UserAction" method="addUserInfo">
+		</action>
+		<action name="userlist" class="com.nfledmedia.dynamicQuoSys.action.UserAction" method="userlist">
+		</action>
+		<action name="getAllDepartment" class="com.nfledmedia.dynamicQuoSys.action.UserAction" method="getAllDepartment">
+		</action>
+		<action name="getAllRole" class="com.nfledmedia.dynamicQuoSys.action.UserAction" method="getAllRole">
+		</action>
+		
+		<action name="updateUserInfo" class="com.nfledmedia.dynamicQuoSys.action.UserAction" method="updateUserInfo">
+		</action>
+	</package>
+		
+</struts>    

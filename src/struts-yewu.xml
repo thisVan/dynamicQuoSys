@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "struts-2.1.dtd" >
+<struts>
+	<package name="yewu" extends="default" namespace="/" >
+	
+		<action name="yewulist" class="com.nfledmedia.dynamicQuoSys.action.YewuAction">
+		</action>
+		<action name="getAllLed" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="getAllLed">
+		</action>
+		<action name="getAllIndustry" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="getAllIndustry">
+		</action>
+		<action name="getAllClient" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="getAllClient">
+		</action>		
+		<action name="ywyyejilist" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="ywyyejilist">
+		</action>
+		
+		<action name="dingdanguanliList" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="dingdanguanliList">
+		</action>
+		<action name="orderUpdatePage" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="orderUpdatePage">
+		     <result>/WEB-INF/pages/orderUpdatePage.jsp</result>
+		</action>
+		<action name="updateOrder" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="updateOrder">
+		</action>
+		<action name="orderAuditList" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="orderAuditList">
+		</action>
+		<action name="myOrderAuditList" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="myOrderAuditList">
+		</action>
+		<action name="batchAudit" class="com.nfledmedia.dynamicQuoSys.action.OrderAuditAction" method="batchAudit">
+		</action>
+		<action name="Audit" class="com.nfledmedia.dynamicQuoSys.action.OrderAuditAction" method="Audit">
+		</action>
+		<action name="deleteOrder" class="com.nfledmedia.dynamicQuoSys.action.OrderAuditAction" method="deleteOrder">
+		</action>
+		<action name="downOrder" class="com.nfledmedia.dynamicQuoSys.action.OrderAuditAction" method="downOrder">
+		</action>
+		<action name="upOrderPage" class="com.nfledmedia.dynamicQuoSys.action.OrderAuditAction" method="upOrderPage">
+		     <result>/WEB-INF/pages/upOrderPage.jsp</result>
+		</action>
+		<action name="upOrder" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="upOrder">
+		</action>
+		<action name="getPieData" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="getPieData">
+		     <result>/WEB-INF/pages/getPieData.jsp</result>
+		</action>
+		<action name="auditPage" class="com.nfledmedia.dynamicQuoSys.action.OrderAuditAction" method="auditPage">
+		     <result>/WEB-INF/pages/auditPage.jsp</result>
+		</action>
+		<action name="fillIndustryClassify" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="fillIndustryClassify"> 
+		</action>
+		<action name="fillYewuyuanList" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="fillYewuyuanList"> 
+		</action>
+		<action name="myAuditOrderUpdatePage" class="com.nfledmedia.dynamicQuoSys.action.OrderAuditAction" method="myAuditOrderUpdatePage">
+			<result>/WEB-INF/pages/myAuditOrderUpdatePage.jsp</result>	
+		</action>
+		
+		<action name="updatemyAuidtOrder" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="updatemyAuidtOrder">
+		</action>
+	
+	</package>
+</struts>

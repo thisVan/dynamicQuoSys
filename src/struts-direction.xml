@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>	 	
+    <package name="direction" extends="default"  namespace="/" > 
+		<action name="pingmustatistic" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="pingmustatistic">
+			<result>/WEB-INF/pages/pingmustatistic.jsp</result>	
+		</action>
+		<action name="pingmuguanli" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="pingmuguanli">
+			<result>/WEB-INF/pages/pingmuguanli.jsp</result>	
+		</action>
+		<action name="index" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="index">
+			<result>/WEB-INF/pages/index.jsp</result>	
+		</action>
+    	<action name="dingdanguanli" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="dingdanguanli">
+			<result>/WEB-INF/pages/dingdanguanli.jsp</result>	
+		</action>
+		<action name="renkantypein" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="renkantypein">
+			<result>/WEB-INF/pages/renkantypein.jsp</result>	
+		</action>
+		<action name="renyuanguanli" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="renyuanguanli">
+			<result>/WEB-INF/pages/renyuanguanli.jsp</result>	
+		</action>
+		<action name="yejistatistic" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="yejistatistic">
+			<result>/WEB-INF/pages/yejistatistic.jsp</result>	
+		</action>
+		<action name="advice" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="advice">
+			<result>/WEB-INF/pages/advice.jsp</result>	
+		</action>
+		<action name="pingmustatistic_fenpingtongji" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="pingmustatistic_fenpingtongji">
+			<result>/WEB-INF/pages/pingmustatistic_fenpingtongji.jsp</result>	
+		</action>
+		<action name="setting" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="setting">
+			<result>/WEB-INF/pages/setting.jsp</result>	
+		</action>
+		<action name="addpingmu" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="addpingmu">
+			<result>/WEB-INF/pages/addpingmu.jsp</result>	
+		</action>
+		<action name="ledsavesuccess" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="ledsavesuccess">
+			<result>/WEB-INF/pages/ledsavesuccess.jsp</result>	
+		</action>
+		<action name="message" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="message">
+			<result>/WEB-INF/pages/message.jsp</result>	
+		</action>	
+		<action name="addUser" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="addUser">
+			<result>/WEB-INF/pages/addUser.jsp</result>	
+		</action>	
+		<action name="login" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="login">
+			<result>/login.jsp</result>	
+		</action>
+		<action name="yewuaudit" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="yewuaudit">
+			<result>/WEB-INF/pages/yewuaudit.jsp</result>	
+		</action>
+		<action name="userUpdate" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="userUpdate">
+			<result>/WEB-INF/pages/userUpdate.jsp</result>	
+		</action>
+		
+		<action name="hangyestatistic" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="hangyestatistic">
+			<result>/WEB-INF/pages/yejistatistic_hangye.jsp</result>	
+		</action>
+		
+		<action name="ledResource" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="ledResource">
+			<result>/WEB-INF/pages/ledResource.jsp</result>	
+		</action>
+		
+		<action name="myAuditOrderListPage" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="myAuditOrderListPage">
+			<result>/WEB-INF/pages/myAuditOrderListPage.jsp</result>	
+		</action>
+		
+	</package>
+</struts>    

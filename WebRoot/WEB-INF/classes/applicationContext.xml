@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+   <context:component-scan base-package="com.nfledmedia.dynamicQuoSys.service" use-default-filters="false"/>
+   <context:component-scan base-package="com.nfledmedia.dynamicQuoSys.dao"/>
+	<!-- 配置数据库连接池 -->
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/led_statistic">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="123456789"></property>
+		<property name="timeBetweenEvictionRunsMillis" value="300000" />
+	</bean>
+	
+	<!-- 采用Spring的配置替换 hibernate.cfg.xml的，基于注解的配置方式 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<!-- hibernate配置 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.connection.autocommit">true</prop>
+				<prop key="hibernate.autoReconnect">true</prop>
+			</props>
+		</property>
+		
+		<!-- 映射资源配置 -->
+		<property name="mappingResources">
+			<list>
+				<value>
+					com/nfledmedia/dynamicQuoSys/entity/Renkanshu.hbm.xml
+				</value>
+				<value>
+					com/nfledmedia/dynamicQuoSys/entity/Bumen.hbm.xml
+				</value>
+				<value>
+					com/nfledmedia/dynamicQuoSys/entity/Led.hbm.xml
+				</value>
+				<value>
+					com/nfledmedia/dynamicQuoSys/entity/Fukuan.hbm.xml
+				</value>
+				<value>
+					com/nfledmedia/dynamicQuoSys/entity/Yewuyuan.hbm.xml
+				</value>
+				<value>
+					com/nfledmedia/dynamicQuoSys/entity/Yewu.hbm.xml
+				</value>
+				<value>
+					com/nfledmedia/dynamicQuoSys/entity/Hangye.hbm.xml
+				</value>
+				<value>
+					com/nfledmedia/dynamicQuoSys/entity/Ywymubiao.hbm.xml
+				</value>
+			 	<value>
+					com/nfledmedia/dynamicQuoSys/entity/Role.hbm.xml
+				</value>
+			 	<value>
+			 		com/nfledmedia/dynamicQuoSys/entity/Resource.hbm.xml
+			 	</value>
+			 	<value>
+			 		com/nfledmedia/dynamicQuoSys/entity/Message.hbm.xml
+			 	</value>
+			 	<value>
+			 		com/nfledmedia/dynamicQuoSys/entity/Shoukuan.hbm.xml
+			 	</value>
+			 	<value>
+			 		com/nfledmedia/dynamicQuoSys/entity/Orderaudit.hbm.xml
+			 	</value>
+			 	<value>
+			 		com/nfledmedia/dynamicQuoSys/entity/Industryclassify.hbm.xml
+			 	</value>
+			 	<value>
+			 		com/nfledmedia/dynamicQuoSys/entity/Industry.hbm.xml
+			 	</value>
+			 	<value>
+			 		com/nfledmedia/dynamicQuoSys/entity/Remark.hbm.xml
+			 	</value></list>
+		</property></bean>
+		
+	<!-- 事务管理 -->
+	<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager"> 
+		<property name="sessionFactory" ref="sessionFactory"></property> 
+	</bean> 
+	<tx:annotation-driven transaction-manager="txManager"/> 
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+	
+	
+	<!-- 配置付款事务操作 -->
+	<bean id="fukuanService"
+		class="com.nfledmedia.dynamicQuoSys.service.FukuanService">
+		<property name="fukuanDAO">
+			<ref bean="fukuanDAO" />
+		</property>
+	</bean>	
+	<bean id="fukuanDAO"
+		class="com.nfledmedia.dynamicQuoSys.dao.FukuanDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<!-- 配置登录操作事务 -->
+	<bean id="userAction"
+		class="com.nfledmedia.dynamicQuoSys.action.UserAction">
+		<property name="userService">
+			<ref bean="userService" />
+		</property>
+		<property name="yewuyuanService">
+			<ref bean="yewuyuanService" />
+		</property>
+	</bean>
+	<bean id="userService"
+		class="com.nfledmedia.dynamicQuoSys.service.UserService">
+		<property name="yewuyuanDAO">
+			<ref bean="yewuyuanDAO" />
+		</property>
+	</bean>	
+	<bean id="yewuyuanService"
+		class="com.nfledmedia.dynamicQuoSys.service.YewuyuanService">
+		<property name="yewuyuanDAO">
+			<ref bean="yewuyuanDAO" />
+		</property>
+		<property name="bumenDAO">
+			<ref bean="bumenDAO" />
+		</property>
+		<property name="roleDAO">
+			<ref bean="roleDAO" />
+		</property>
+	</bean>
+	
+		<!-- 配置消息操作事务 -->
+	<bean id="messageAction"
+		class="com.nfledmedia.dynamicQuoSys.action.MessageAction">
+		<property name="messageService">
+			<ref bean="messageService" />
+		</property>
+	</bean>
+	<bean id="messageService"
+		class="com.nfledmedia.dynamicQuoSys.service.MessageService">
+		<property name="messageDAO">
+			<ref bean="messageDAO" />
+		</property>
+	</bean>	
+	   <bean id="messageDAO"
+    	class="com.nfledmedia.dynamicQuoSys.dao.MessageDAO">
+   	    <property name="sessionFactory">
+   		   <ref bean="sessionFactory" />
+   	    </property>
+   </bean>
+	
+	<!-- 配置认刊事务 -->
+	<bean id="renkanAction"
+		class="com.nfledmedia.dynamicQuoSys.action.RenkanAction">
+		<property name="renkanshuService">
+			<ref bean="renkanshuService" />
+		</property>
+		<property name="yewuService">
+			<ref bean="yewuService" />
+		</property>
+		<property name="fukuanService">
+			<ref bean="fukuanService" />
+		</property>
+	</bean>
+	<bean id="renkanshuService"
+		class="com.nfledmedia.dynamicQuoSys.service.RenkanshuService">
+		<property name="renkanshuDAO">
+			<ref bean="renkanshuDAO" />
+		</property>
+	</bean>
+	<bean id="renkanshuDAO"
+		class="com.nfledmedia.dynamicQuoSys.dao.RenkanshuDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="directionAction"
+		class="com.nfledmedia.dynamicQuoSys.action.DirectionAction">
+		<property name="bumenService">
+			<ref bean="bumenService" />
+		</property>
+		<property name="roleService">
+			<ref bean="roleService" />
+		</property>
+		<property name="yewuyuanService">
+			<ref bean="yewuyuanService" />
+		</property>
+	</bean>
+	<bean id="bumenService"
+		class="com.nfledmedia.dynamicQuoSys.service.BumenService">
+		<property name="bumenDAO">
+			<ref bean="bumenDAO" />
+		</property>
+	</bean>
+	<bean id="roleService"
+		class="com.nfledmedia.dynamicQuoSys.service.RoleService">
+		<property name="roleDAO">
+			<ref bean="roleDAO" />
+		</property>
+	</bean>
+	
+	<bean id="resourceService"
+		class="com.nfledmedia.dynamicQuoSys.service.ResourceService">
+		<property name="resourceDAO">
+			<ref bean="ResourceDAO" />
+		</property>
+	</bean>
+	
+	<bean id="ledService"
+		class="com.nfledmedia.dynamicQuoSys.service.LedService">
+		<property name="ledDAO">
+			<ref bean="LedDAO" />
+		</property>
+	</bean>
+
+
+	<!-- 配置收款事务 -->
+	<bean id="shoukuanAction"
+		class="com.nfledmedia.dynamicQuoSys.action.ShoukuanAction">
+		<property name="shoukuanService">
+			<ref bean="shoukuanService" />
+		</property>
+	</bean>
+	<bean id="shoukuanService"
+		class="com.nfledmedia.dynamicQuoSys.service.ShoukuanService">
+		<property name="shoukuanDAO">
+			<ref bean="ShoukuanDAO" />
+		</property>
+	</bean>
+	<bean id="shoukuanDAO"
+		class="com.nfledmedia.dynamicQuoSys.dao.ShoukuanDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<!-- 配置认刊事务业务处理 -->
+	<bean id="yewuService"
+		class="com.nfledmedia.dynamicQuoSys.service.YewuService">
+		<property name="yewuDAO">
+			<ref bean="yewuDAO" />
+		</property>
+		<property name="ledDAO">
+			<ref bean="LedDAO" />
+		</property>
+		<property name="industryDAO">
+			<ref bean="IndustryDAO" />
+		</property>
+		<property name="ywymubiaoDAO">
+			<ref bean="YwymubiaoDAO" />
+		</property>
+		<property name="shoukuanDAO">
+			<ref bean="ShoukuanDAO" />
+		</property>
+		<property name="yewuyuanDAO">
+			<ref bean="yewuyuanDAO" />
+		</property>
+		<property name="orderauditDAO">
+			<ref bean="OrderauditDAO" />
+		</property>
+		<property name="renkanshuDAO">
+			<ref bean="renkanshuDAO" />
+		</property>
+		<property name="messageDAO">
+			<ref bean="messageDAO" />
+		</property>
+		<property name="remarkDAO">
+			<ref bean="RemarkDAO" />
+		</property>
+		<property name="industryclassifyDAO">
+		<ref bean="IndustryclassifyDAO"/>
+		</property>
+	</bean>
+	
+	<bean id="remarkService"
+		class="com.nfledmedia.dynamicQuoSys.service.RemarkService">
+		<property name="remarkDAO">
+			<ref bean="RemarkDAO" />
+		</property>
+	</bean>
+	
+	<bean id="orderauditService"
+		class="com.nfledmedia.dynamicQuoSys.service.OrderauditService">
+		<property name="orderauditDAO">
+			<ref bean="OrderauditDAO" />
+		</property>
+	</bean>
+	
+
+	<bean id="yewuDAO"
+		class="com.nfledmedia.dynamicQuoSys.dao.YewuDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="yewuyuanDAO"
+		class="com.nfledmedia.dynamicQuoSys.dao.YewuyuanDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="bumenDAO"
+		class="com.nfledmedia.dynamicQuoSys.dao.BumenDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="LedDAO" class="com.nfledmedia.dynamicQuoSys.dao.LedDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>	
+	<bean id="HangyeDAO"
+		class="com.nfledmedia.dynamicQuoSys.dao.HangyeDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="YwymubiaoDAO"
+		class="com.nfledmedia.dynamicQuoSys.dao.YwymubiaoDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="FukuanDAO"
+		class="com.nfledmedia.dynamicQuoSys.dao.FukuanDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="RenkanshuDAO"
+		class="com.nfledmedia.dynamicQuoSys.dao.RenkanshuDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="YewuDAO"
+		class="com.nfledmedia.dynamicQuoSys.dao.YewuDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="YewuyuanDAO"
+		class="com.nfledmedia.dynamicQuoSys.dao.YewuyuanDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+   <bean id="roleDAO"
+		class="com.nfledmedia.dynamicQuoSys.dao.RoleDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+   <bean id="ResourceDAO"
+   	class="com.nfledmedia.dynamicQuoSys.dao.ResourceDAO">
+   	<property name="sessionFactory">
+   		<ref bean="sessionFactory" />
+   	</property>
+   </bean>
+
+   <bean id="ShoukuanDAO"
+		class="com.nfledmedia.dynamicQuoSys.dao.ShoukuanDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+    <bean id="MessageDAO"
+   	      class="com.nfledmedia.dynamicQuoSys.dao.MessageDAO">
+   	      <property name="sessionFactory">
+   		  <ref bean="sessionFactory" />
+   	</property>
+   </bean>
+    <bean id="OrderauditDAO"
+    	class="com.nfledmedia.dynamicQuoSys.dao.OrderauditDAO">
+    	<property name="sessionFactory">
+    		<ref bean="sessionFactory" />
+    	</property>
+    </bean>
+    <bean id="IndustryclassifyDAO"
+    	class="com.nfledmedia.dynamicQuoSys.dao.IndustryclassifyDAO">
+    	<property name="sessionFactory">
+    		<ref bean="sessionFactory" />
+    	</property>
+    </bean>
+    <bean id="IndustryDAO"
+    	class="com.nfledmedia.dynamicQuoSys.dao.IndustryDAO">
+    	<property name="sessionFactory">
+    		<ref bean="sessionFactory" />
+    	</property>
+    </bean>
+    <bean id="RemarkDAO"
+    	class="com.nfledmedia.dynamicQuoSys.dao.RemarkDAO">
+    	<property name="sessionFactory">
+    		<ref bean="sessionFactory" />
+    	</property>
+    </bean></beans>

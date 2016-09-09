@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "struts-2.1.dtd" >
+<struts>
+	<package name="led" extends="default" namespace="/" >		
+		<action name="pingmuguanliList" class="com.nfledmedia.dynamicQuoSys.action.LedAction" method="pingmuguanliList">
+		</action>	
+		<action name="ledUpdatePage" class="com.nfledmedia.dynamicQuoSys.action.LedAction" method="ledUpdatePage">
+		<result>/WEB-INF/pages/ledUpdatePage.jsp</result>
+		</action>	
+		<action name="updateLed" class="com.nfledmedia.dynamicQuoSys.action.LedAction" method="updateLed">
+		</action>
+		<action name="deleteLed" class="com.nfledmedia.dynamicQuoSys.action.LedAction" method="deleteLed">
+		</action>
+		<action name="ledResourceList" class="com.nfledmedia.dynamicQuoSys.action.LedAction" method="ledResourceList">
+		</action>
+	</package>
+</struts>
