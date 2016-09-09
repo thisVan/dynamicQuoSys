@@ -58,10 +58,6 @@
 		</div>
 		
 		<div class="form-group">
-			<label for="account" class="col-sm-2 control-label">类型</label>
-			<div class="col-sm-4"><input type="text" class="form-control input-sm" name="leixing"  value='<s:property value="yewu.leixing"/>'maxlength="20" disabled></div>
-		</div>
-		<div class="form-group">
 			<label for="account" class="col-sm-2 control-label">签订日期</label>
 			<div class="col-sm-4"><input type="text" class="form-control input-sm" name="yewu.renkanshu.qiandingriqi"  value='<s:property value="qiandingriqi"/>' maxlength="20" disabled></div>
 		</div>
@@ -86,6 +82,10 @@
 				</select>
 			</div>
 		</div>
+		<div class="form-group">
+			<label for="account" class="col-sm-2 control-label">合计实付(元)</label>
+			<div class="col-sm-4"><input type="text" class="form-control input-sm" name="kanlizongjia"  value='<s:property value="yewu.renkanshu.kanlizongjia"/>'maxlength="20" ></div>
+		</div>
 		
 		<div class="form-group">
 			<label for="role" class="col-sm-2 control-label">上画屏幕</label>
@@ -97,7 +97,10 @@
 				</select>
 			</div>
 		</div>
-		
+		<div class="form-group">
+			<label for="account" class="col-sm-2 control-label">类型</label>
+			<div class="col-sm-4"><input type="text" class="form-control input-sm" name="leixing"  value='<s:property value="yewu.leixing"/>'maxlength="20" disabled></div>
+		</div>
 		<div class="form-group">
 			<label for="account" class="col-sm-2 control-label">时长</label>
 			<div class="col-sm-4"><input type="text" class="form-control input-sm" name="shichang"  value='<s:property value="yewu.shichang"/>'maxlength="20" ></div>
@@ -116,10 +119,13 @@
 			<div class="col-sm-4"><input type="date" class="form-control input-sm" name="jieshushijian"  value='<s:property value="jieshushijian"/>'maxlength="20" ></div>
 		</div>  
 		<div class="form-group">
-			<label for="account" class="col-sm-2 control-label">数量(周)</label>
+			<label for="account" class="col-sm-2 control-label">投放时长(周)</label>
 			<div class="col-sm-4"><input type="text" class="form-control input-sm" name="shuliang"  value='<s:property value="yewu.shuliang"/>'maxlength="20" ></div>
 		</div>
-		
+		<div class="form-group">
+			<label for="account" class="col-sm-2 control-label">刊例价小计(元)</label>
+			<div class="col-sm-4"><input type="text" class="form-control input-sm" name="kanlixiaoji"  value='<s:property value="yewu.kanlijiaxiaoji"/>'maxlength="20" ></div>
+		</div>
 		<div class="form-group">
 			<label for="account" class="col-sm-2 control-label">修改理由</label>
 			<div class="col-sm-4"><textarea class="form-control input-sm " rows="3" name="updateReason" maxlength="150"></textarea></div>

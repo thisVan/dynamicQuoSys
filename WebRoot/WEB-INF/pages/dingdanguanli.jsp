@@ -283,7 +283,7 @@
 		    	datatype:"json",
 		    	colNames:['认刊编号','广告客户','类型','上画屏幕','开始时间','结束时间','时长','频次','状态',''],
 	//	    	shrinkToFit:false,
-		    	height:320,
+		    	height:450,
 		    	rowNum:<s:property value="@com.nfledmedia.dynamicQuoSys.cons.CommonConstant@DEFAULT_PAGE_SIZE"/>,
 		    	rowList: [10, 20, 30],
         		pager: "jqgrid-pager",
@@ -296,7 +296,7 @@
         			name:"renkanshu.renkanbianhao",
         			index:"renkanshu.renkanbianhao",
         			align:"center",
-        	 		width:"100px",  
+        	 		width:"120px",  
         			formatter:formatRenkanbianhao
         		},{
         			name:"kanhu",

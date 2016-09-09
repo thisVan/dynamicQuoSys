@@ -631,7 +631,7 @@ public class YewuService {
 	public void update(Integer userID, Integer id, String guanggaoneirong,
 			Short industryId, String ledId, Integer shichang, Integer pinci,
 			Date kaishishijian, Date jieshushijian, Integer shuliang,
-			String updateReason) {
+			String updateReason, Double kanlizongjia, Double kanlixiaoji) {
 		System.out
 				.println("…………………………………………进入yewuService.update………………………………………………");
 		Yewuyuan operUser = yewuyuanDAO.findById(userID);
@@ -639,8 +639,10 @@ public class YewuService {
 		Led led = ledDAO.findById(ledId);
 		Industry industry = industryDAO.findById(industryId);
 		System.out.println("operUser:" + operUser + "   led:" + led);
-
+		
 		Yewu yewu = yewuDAO.findById(id);
+		
+		Renkanshu renkanshu = yewu.getRenkanshu();
 		// format的格式可以任意
 		Date datenow = new Date();
 		DateFormat sdf2TS = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -708,11 +710,15 @@ public class YewuService {
 		orderAudit.setKaishishijian(kaishishijian);
 		orderAudit.setJieshushijian(jieshushijian);
 		orderAudit.setShuliang(shuliang);
+		orderAudit.setKanlijiaxiaoji(kanlixiaoji);
 		orderAudit.setOperReason(updateReason);
 		// orderAudit.setOrderState(state);
 		orderAudit.setOperTimestamp(new Date());
 		orderAudit.setOperType("L");
 		orderauditDAO.save(orderAudit);
+		
+		renkanshu.setKanlizongjia(kanlizongjia);
+		renkanshuDAO.merge(renkanshu);
 
 		Remark remark = new Remark();
 		remark.setOperTime(timeStamp);

@@ -58,10 +58,6 @@
 		</div>
 		
 		<div class="form-group">
-			<label for="account" class="col-sm-2 control-label">类型</label>
-			<div class="col-sm-4"><p class="form-control-static"><s:property value="orderaudit.leixing"/></p></div>
-		</div>
-		<div class="form-group">
 			<label for="account" class="col-sm-2 control-label">签订日期</label>
 			<div class="col-sm-4"><p class="form-control-static"><s:property value="qiandingriqi"/></p></div>
 		</div>
@@ -79,12 +75,19 @@
 			<label for="account" class="col-sm-2 control-label">行业</label>
 			<div class="col-sm-4"><p class="form-control-static"><s:property value="orderaudit.industry.industryDesc"/></p></div>
 		</div>
+		<div class="form-group">
+			<label for="account" class="col-sm-2 control-label">实付合计（元）</label>
+			<div class="col-sm-4"><p class="form-control-static"><s:property value="renkanshu.kanlizongjia"/></p></div>
+		</div>
 		
 		<div class="form-group">
 			<label for="role" class="col-sm-2 control-label">上画屏幕</label>
 			<div class="col-sm-4"><p class="form-control-static"><s:property value="orderaudit.led.ledName"/></p></div>
 		</div>
-		
+		<div class="form-group">
+			<label for="account" class="col-sm-2 control-label">类型</label>
+			<div class="col-sm-4"><p class="form-control-static"><s:property value="orderaudit.leixing"/></p></div>
+		</div>
 		<div class="form-group">
 			<label for="account" class="col-sm-2 control-label">时长</label>
 			<div class="col-sm-4"><p class="form-control-static"><s:property value="orderaudit.shichang"/></p></div>
@@ -105,6 +108,10 @@
 		<div class="form-group">
 			<label for="account" class="col-sm-2 control-label">投放时长(周)</label>
 			<div class="col-sm-4"><p class="form-control-static"><s:property value="orderaudit.shuliang"/></p></div>
+		</div>
+		<div class="form-group">
+			<label for="account" class="col-sm-2 control-label">刊例价小计（元）</label>
+			<div class="col-sm-4"><p class="form-control-static"><s:property value="orderaudit.kanlijiaxiaoji"/></p></div>
 		</div>
 		
 <!-- 		<div class="form-group">

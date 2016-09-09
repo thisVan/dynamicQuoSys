@@ -489,7 +489,7 @@ public class YewuAction extends SuperAction implements ModelDriven<Yewu> {
 				+ kaishishijian + " " + jieshushijian + "  " + guanggaoneirong);
 		yewuService.update(userID, tid, guanggaoneirong, industryId, ledId,
 				shichang, pinci, kaishishijian, jieshushijian, shuliang,
-				updateReason);
+				updateReason, Double.parseDouble(kanlizongjia), Double.parseDouble(kanlixiaoji));
 		System.out.println("………………………………调用yewuService.update后……………………………………");
 		jsonObject.put("state", 0);
 		jsonObject.put("info", "您的修改信息已提交，请耐心等待审核结果！");

@@ -55,9 +55,10 @@
 			<div class="col-sm-3">
 				<button class="btn btn-primary btn-xs" id="batchAudit" data-target="" onclick="setIds(this);openAuditModel(this);">批量审核</button>
 			</div>   
-			
-			
-			
+			<!-- <div class="col-sm-3">
+				<div>已审核45/总共189</div>
+			</div>  -->
+
 			<!-- 条件搜索 begin-->
 			<div class="col-sm-3 pull-right">
 				<div id="fuzzySearchbox" class="input-group input-group-sm searchbox">
