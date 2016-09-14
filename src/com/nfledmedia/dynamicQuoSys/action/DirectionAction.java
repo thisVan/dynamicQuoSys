@@ -127,4 +127,8 @@ public class DirectionAction extends SuperAction implements ModelDriven<Yewuyuan
 	public String myAuditOrderListPage() throws Exception {
 		return SUCCESS;
 	}
+	
+	public String renkanshuListAudit() throws Exception {
+		return SUCCESS;
+	}
 }

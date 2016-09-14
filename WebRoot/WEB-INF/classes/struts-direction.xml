@@ -66,5 +66,8 @@
 			<result>/WEB-INF/pages/myAuditOrderListPage.jsp</result>	
 		</action>
 		
+		<action name="renkanshuListAudit" class="com.nfledmedia.dynamicQuoSys.action.DirectionAction" method="renkanshuListAudit">
+			<result>/WEB-INF/pages/renkanshuListAudit.jsp</result>	
+		</action>
 	</package>
 </struts>    

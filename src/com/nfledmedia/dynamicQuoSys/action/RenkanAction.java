@@ -346,6 +346,7 @@ public class RenkanAction extends SuperAction {
 			// renkanshu.setFenqi(Integer.parseInt(fenqi));
 			renkanshu.setIndustry(industryin);
 			renkanshu.setRksTimestamp(ts);
+			renkanshu.setState("A");
 
 			System.out.println(renkanshu.toString());
 			// 业务员信息处理，包装
@@ -404,7 +405,7 @@ public class RenkanAction extends SuperAction {
 				remark.setOperYwyName(OperYewuyuan.getYwyXingming());
 				remark.setYewu(yewu);
 				remark.setOperContent(remarkContent);
-				remark.setState("A");
+				remark.setState("T");//添加订单
 				remarkList.add(remark);
 
 				// Yewu yewu = new Yewu();

@@ -1,5 +1,7 @@
 package com.nfledmedia.dynamicQuoSys.service;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -31,6 +33,30 @@ public class OrderauditService {
 		System.out.println("OrderauditService获取orderaudit："+orderaudit.getId());
 		return orderaudit;
 	}
+	
+	public List getOrderIdByRenkanbianhao(String renkanbianhao){
+		List list=null;
+		System.out.println("----------------进入OrderauditService,调用loadOrderauditByID----------------------");
+		try{
+			list=orderauditDAO.getOrderIdByRenkanbianhao(renkanbianhao);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		System.out.println("OrderauditService获取list.size："+list.size());
+		return list;
+	}
+	
+	public List getRenkanshubianhaoForAudit(){
+		List list=null;
+		System.out.println("----------------进入OrderauditService,调用getRenkanshubianhaoForAudit----------------------");
+		try{
+			list=orderauditDAO.getRenkanshubianhaoForAudit();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 
 
 	public OrderauditDAO getOrderauditDAO() {

@@ -44,16 +44,12 @@ public class RemarkDAO extends HibernateDaoSupport {
 	public List getRemarks(Integer yewuId){
 		return  find(GET_REMARK_CONTENT+" where r.state='N' and r.yewu.yewuId="+yewuId);
 	}
-	
-	
-	
-	
-	
+
 	
 	public Page getOrderAuditList(String sidx,String sord,int pageNo,int pageSize){
 		Page page=null;
 		try{
-			page=pagedQuery(GET_ORDERAUDIT_LIST+" where r.state!='N' order by r."+sidx+" "+sord, pageNo, pageSize);
+			page=pagedQuery(GET_ORDERAUDIT_LIST+" where r.state='A' order by r."+sidx+" "+sord, pageNo, pageSize);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -67,6 +63,8 @@ public class RemarkDAO extends HibernateDaoSupport {
 		}
 		return null;
 	}
+	
+	
 	
 	
 	

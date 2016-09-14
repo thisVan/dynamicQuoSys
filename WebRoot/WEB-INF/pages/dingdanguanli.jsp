@@ -44,7 +44,7 @@
 			<div class="col-lg-12">
 				<h3 class="page-header">
 					订单管理
-					</h1>
+					</h3>
 			</div>
 		</div>
 		<!--/.row-->
@@ -103,13 +103,13 @@
 						</select>
 					</div>
 			</div>
-			
+			<div class="col-sm-12"><lable>&nbsp;</lable></div>
 							
 			<div class="col-sm-2 pull-right">
 					<button class="btn btn-primary btn-sm" id="exactQuery">查询</button>
 					<button class="btn btn-danger btn-sm" id="clearExactForm">清除</button>
 			</div>
-			
+			<div class="col-sm-12"><lable>&nbsp;</lable></div>
 			</fieldset>
 		</form>
 		
@@ -117,8 +117,7 @@
 		   <div id="jqgrid-pager"></div>
 		
 	 </div>
-	 
-	 
+
 					</div>
 				</div>
 			</div>
@@ -283,7 +282,7 @@
 		    	datatype:"json",
 		    	colNames:['认刊编号','广告客户','类型','上画屏幕','开始时间','结束时间','时长','频次','状态',''],
 	//	    	shrinkToFit:false,
-		    	height:450,
+		    	height:400,
 		    	rowNum:<s:property value="@com.nfledmedia.dynamicQuoSys.cons.CommonConstant@DEFAULT_PAGE_SIZE"/>,
 		    	rowList: [10, 20, 30],
         		pager: "jqgrid-pager",
@@ -296,7 +295,7 @@
         			name:"renkanshu.renkanbianhao",
         			index:"renkanshu.renkanbianhao",
         			align:"center",
-        	 		width:"120px",  
+        	 		width:"100px",  
         			formatter:formatRenkanbianhao
         		},{
         			name:"kanhu",

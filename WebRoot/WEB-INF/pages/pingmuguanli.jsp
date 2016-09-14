@@ -45,7 +45,7 @@
 			<div class="col-lg-12">
 				<h3 class="page-header">
 					屏幕管理
-					</h1>
+					</h3>
 			</div>
 		</div>
 		<!--/.row-->

@@ -44,6 +44,11 @@ public class OrderauditDAO extends HibernateDaoSupport {
 	
 	private static final String GET_RENKANSHU_BY_BIANHAO="select o.id from Orderaudit o where o.renkanbianhao = ";
 	private static final String GET_MY_ORDERUDIT_LIS="select o.id,o.renkanbianhao,o.kanhu,o.leixing,o.led.ledName,o.guanggaoneirong,o.operType from Orderaudit o ";
+	private static final String GET_RENKANSHUBIANHAO_FOR_AUDIT = "select distinct o.renkanbianhao from Orderaudit o where o.operType='A' ";
+	private static final String GET_ORDER_BY_RENKABBIANHAO = "select o.id, o.led.ledName, o.leixing, o.kaishishijian, o.jieshushijian, o.pinci, o.shichang,"+
+	" o.kanlijiaxiaoji, o.shuliang from Orderaudit o left join o.led where o.operType='A' and o.renkanbianhao=";
+	private static final String GET_ORDERID_BY_RENKABBIANHAO = "select o.id from Orderaudit o where o.operType='A' and o.renkanbianhao=";
+	
 	protected void initDao() {
 		// do nothing
 		getHibernateTemplate().setFlushMode(HibernateTemplate.FLUSH_EAGER);
@@ -51,6 +56,14 @@ public class OrderauditDAO extends HibernateDaoSupport {
 	
 	public List getAllOrderAuditByRenkanshubianhao(String renkanshubianhaoDelete){
 		return find(GET_RENKANSHU_BY_BIANHAO+"'"+renkanshubianhaoDelete+"'");
+	}
+	
+	public List getRenkanshubianhaoForAudit(){
+		return find(GET_RENKANSHUBIANHAO_FOR_AUDIT);
+	}
+	
+	public List getOrderIdByRenkanbianhao(String renkanbianhao){
+		return find(GET_ORDERID_BY_RENKABBIANHAO+"'"+renkanbianhao+"'");
 	}
 	
 	public Page getMyOrderAuditList(String sidx,String sord,int pageNo,int pageSize,Integer operYwyId){
@@ -71,10 +84,16 @@ public class OrderauditDAO extends HibernateDaoSupport {
 		return null;
 	}
 	
-	
-	
-	
-	
+	public Page getOrderListForNewRenkanshu(String renkanbianhao,String sidx, String sord, int pageNo,int pageSize) {
+	    Page page=null;
+	    try{
+	    	page=pagedQuery(GET_ORDER_BY_RENKABBIANHAO +"'"+renkanbianhao+"'"+ " order by o." + sidx + " " + sord, pageNo,pageSize);
+	    }catch(Exception e){
+	    	e.printStackTrace();
+	    }
+	    return page;
+	}
+
 	
 	
 	
@@ -170,12 +189,14 @@ public class OrderauditDAO extends HibernateDaoSupport {
 
 	public void delete(Orderaudit persistentInstance) {
 		log.debug("deleting Orderaudit instance");
+		
 		try {
 			getHibernateTemplate().delete(persistentInstance);
 			log.debug("delete successful");
-		} catch (RuntimeException re) {
+		} catch (Exception re) {
 			log.error("delete failed", re);
-			throw re;
+			re.printStackTrace();
+//			throw re;
 		}
 	}
 

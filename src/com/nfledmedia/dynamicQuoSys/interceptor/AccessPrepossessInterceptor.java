@@ -105,12 +105,12 @@ public class AccessPrepossessInterceptor extends AbstractInterceptor {
 			addResourcesMapToActionContext(resourcesList, ctx);
 			List<Resource> resourcesListAll = resourceService.getAllResource() ;
 			System.out.println("prefix:"+prefix);
-			for(int i=0;i<resourcesList.size();i++){
-				System.out.println(resourcesList.get(i).getUrl());
-			}
-			for(int i=0;i<resourcesListAll.size();i++){
-				System.out.println(resourcesListAll.get(i).getUrl());
-			}
+//			for(int i=0;i<resourcesList.size();i++){
+//				System.out.println(resourcesList.get(i).getUrl());
+//			}
+//			for(int i=0;i<resourcesListAll.size();i++){
+//				System.out.println(resourcesListAll.get(i).getUrl());
+//			}
 			boolean flag = getResourcesMapAndActiveMessage(resourcesList,resourcesListAll, prefix);
 			if(flag == false){ //无访问权限
 				ctx.put("messageCode", "对不起，您没有访问权限");

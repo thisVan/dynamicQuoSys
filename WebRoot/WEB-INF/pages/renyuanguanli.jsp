@@ -60,9 +60,7 @@
 							</a>
 						</div>
 					</div>
-					<div id="jqgrid-wrapper">
-		<div class="row" style="margin-bottom:10px;">
-			<div class="col-sm-3 pull-right">
+					<div class="col-sm-3 pull-right">
 				<div id="fuzzySearchbox" class="input-group input-group-sm searchbox">
 					<input type="search" id="searchText" class="form-control" placeholder="请输入关键字...">
 					<span class="input-group-btn">
@@ -70,7 +68,10 @@
 					</span>
 				</div>
 			</div>
-		</div>	
+		<div class="row" >
+
+		</div>
+		
 		<form class="form-horizontal" role="form" id="exactForm">
 			<fieldset>
 				<legend>查询条件</legend>
@@ -94,11 +95,12 @@
 					<button class="btn btn-primary btn-sm" id="exactQuery">查询</button>
 					<button class="btn btn-danger btn-sm" id="clearExactForm">清除</button>
 				</div>
+				<div class="col-sm-12"><lable>&nbsp;</lable></div>
 			</fieldset>
 		</form>
 		
 		<table id="jqgrid" class="table table-striped table-hover" ></table>
-		   <div id="jqgrid-pager"></div>
+		   <div id="jqgrid-pager" ></div>
 		
 	 </div>
 				</div>
@@ -207,10 +209,10 @@
 		    }), e(), $("#jqgrid").length > 0 && t.jqGrid("navGrid","#jqgrid-pager",{
 		    	add:!1,
 		    	edit:!1,
-		    	del:!0,
+		    	del:!1,
 		    	view:!1,
 		    	search: !1,
-        		refresh:!0
+        		refresh:!1
 		    },{},{},{},{
 		    	multipleSearch: true,
 		    	multipleGroup:true

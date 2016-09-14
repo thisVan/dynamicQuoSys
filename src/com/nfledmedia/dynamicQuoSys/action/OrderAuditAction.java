@@ -40,6 +40,9 @@ public class OrderAuditAction extends ActionSupport {
 	private String oper;
 	private String upOrder_id;
 	private String audit_id;
+	private String audit_renkanbianhao;
+	
+	private String renkanshu_id;
 	
 	//下画操作
 	private String xiahua_ids;
@@ -94,7 +97,7 @@ public class OrderAuditAction extends ActionSupport {
 	}
 
 	/**
-	 * 单条审核
+	 * 单条审核，以orderauditId为基础
 	 * @return
 	 * @throws Exception
 	 */
@@ -109,8 +112,30 @@ public class OrderAuditAction extends ActionSupport {
 		sentMsg(jsonObject.toString());
 		return null;
 	}
+	
 	/**
-	 * 批量审核
+	 * 认刊书审核，以orderauditId为基础
+	 * @return
+	 * @throws Exception
+	 */
+	public String renkanshuAudit() throws Exception{
+		Map session = ActionContext.getContext().getSession();
+		System.out.println(".....................调用OrderAuditAction中的renkanshuAudits方法....................");
+		System.out.println("renkanshu_id"+renkanshu_id+"  ids："+ids+"  auditResult:"+auditResult+"   auditReason:"+auditReason+"   (Integer) session.get(CommonConstant.SESSION_ID):"+(Integer) session.get(CommonConstant.SESSION_ID));
+		Renkanshu renkanshu=renkanshuService.loadRenkanshuByID(renkanshu_id);
+		renkanshu.setState("N");
+		renkanshuService.mergeRenkanshu(renkanshu);
+		yewuService.AuditOrders(ids, auditResult, auditReason, (Integer) session.get(CommonConstant.SESSION_ID));
+		System.out.println("-------renkanshuAudit结束-----------");
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("state", 0);
+		jsonObject.put("info", "审核成功");
+		sentMsg(jsonObject.toString());
+		return null;
+	}
+	
+	/**
+	 * 批量审核，以remarkId为基础
 	 */
 	public String batchAudit() throws Exception{
 		Map session = ActionContext.getContext().getSession();
@@ -223,6 +248,31 @@ public class OrderAuditAction extends ActionSupport {
 		
 		ctx.put("yewuyuan", yewuyuan.getYwyXingming());
 		System.out.println("###############调用YewuAction中的auditPage函数:orderaudit"+ orderaudit.getIndustry());
+		return SUCCESS;
+	}
+	
+	public String auditRenkanshuPage() throws Exception {
+		ActionContext ctx = ActionContext.getContext();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String orderIds="";
+		
+		renkanshu = renkanshuService.loadRenkanshuByID(audit_renkanbianhao);
+		List orderIdList=orderauditService.getOrderIdByRenkanbianhao(audit_renkanbianhao);
+		for(int i=0;i<orderIdList.size();i++){
+			if(i==orderIdList.size()-1){
+				orderIds+=orderIdList.get(i).toString();
+			}else{
+				orderIds+=orderIdList.get(i).toString()+",";
+			}
+			
+		}
+		Yewuyuan yewuyuan = yewuyuanService.loadUserByID(renkanshu.getYwyId());
+	
+		ctx.put("qiandingriqi",sdf.format(renkanshu.getQiandingriqi()));
+		ctx.put("yewuyuan", yewuyuan.getYwyXingming());
+		ctx.put("orderIds", orderIds);
+		System.out.println("------------orderIds------------"+orderIds);
+//		System.out.println("###############调用YewuAction中的auditPage函数:orderaudit"+ orderaudit.getIndustry());
 		return SUCCESS;
 	}
 	
@@ -404,6 +454,21 @@ public class OrderAuditAction extends ActionSupport {
 	public void setMyAuditOrder_id(Integer myAuditOrder_id) {
 		this.myAuditOrder_id = myAuditOrder_id;
 	}
-	
+
+	public String getAudit_renkanbianhao() {
+		return audit_renkanbianhao;
+	}
+
+	public void setAudit_renkanbianhao(String audit_renkanbianhao) {
+		this.audit_renkanbianhao = audit_renkanbianhao;
+	}
+
+	public String getRenkanshu_id() {
+		return renkanshu_id;
+	}
+
+	public void setRenkanshu_id(String renkanshu_id) {
+		this.renkanshu_id = renkanshu_id;
+	}
 	
 }

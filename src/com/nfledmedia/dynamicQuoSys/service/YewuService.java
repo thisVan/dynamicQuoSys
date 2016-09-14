@@ -177,10 +177,10 @@ public class YewuService {
 				pageNo, pageSize);
 	}
 
+	//获取待审核的订单列表
 	public Page getOrderAuditList(String sidx, String sord, int pageNo,
 			int pageSize) {
-		System.out
-				.println("^^^^^^^^^^^^^^^^^^^^^^^^^yewuService:getOrderAuditList:sidx:"
+		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^yewuService:getOrderAuditList:sidx:"
 						+ sidx);
 		return remarkDAO.getOrderAuditList(sidx, sord, pageNo, pageSize);
 	}
@@ -189,7 +189,20 @@ public class YewuService {
 		return remarkDAO.getOrderAuditListByKeyword(keyword, sidx, sord,
 				pageNo, pageSize);
 	}
-
+	
+	//获取待审的认刊书列表
+	public Page getRenkanshuAuditList(String sidx, String sord, int pageNo,
+			int pageSize) {
+		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^yewuService:getRenkanshuAuditList:sidx:"+ sidx);
+		return renkanshuDAO.getRenkanshuAuditList(sidx, sord, pageNo, pageSize);
+	}
+	public Page getRenkanshuAuditListByKeyword(String keyword, String sidx,
+			String sord, int pageNo, int pageSize) {
+		return renkanshuDAO.getRenkanshuAuditListByKeyword(keyword, sidx, sord,
+				pageNo, pageSize);
+	}
+	
+	//获取我的待审核列表
 	public Page getMyOrderAuditList(String sidx, String sord, int pageNo,
 			int pageSize, Integer operYwyId) {
 		System.out
@@ -203,6 +216,13 @@ public class YewuService {
 		return orderauditDAO.getMyOrderAuditListByKeyword(keyword, sidx, sord,
 				pageNo, pageSize, operYwyId);
 	}
+	
+	public Page getOrderListForNewRenkanshu(String renkanbianhao,String sidx, String sord, int pageNo,
+			int pageSize) {
+		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^yewuService:OrderListForNewRenkanshu:sidx:"+ sidx+"  renkanbianhao:"+renkanbianhao);
+		return orderauditDAO.getOrderListForNewRenkanshu(renkanbianhao,sidx, sord, pageNo, pageSize);
+	}
+	
 
 	public List getAllLed() {
 		System.out.println("调用???????????yewuService：getAllLed");
@@ -294,23 +314,19 @@ public class YewuService {
 		return (Industry) industry.get(0);
 	}
 
-	public void AuditOrders(String ids, boolean auditResult,
-			String auditReason, Integer auditID) {
-		System.out
-				.println(".....................进入YewuService中的batchAuditOrders方法....................");
+	public void AuditOrders(String ids, boolean auditResult,String auditReason, Integer auditID) {
+		System.out.println(".....................进入YewuService中的AuditOrders方法....................");
 		String[] idss = ids.split(",");
 		for (int i = 0, size = idss.length; i < size; i++) {
 			Integer id = new Integer(idss[i]);
-			// Remark remark = remarkDAO.findById(id);
-			// Integer orderAuditid = remark.getOrderauditId();
 			auditOrder(id, auditResult, auditReason, auditID);
 		}
+		System.out.println("-------以orderauditId为基准的审核结束-----------");
 	}
 
 	public void batchAuditOrders(String ids, boolean auditResult,
 			String auditReason, Integer auditID) {
-		System.out
-				.println(".....................进入YewuService中的batchAuditOrders方法....................");
+		System.out.println(".....................进入YewuService中的batchAuditOrders方法....................");
 		String[] idss = ids.split(",");
 		for (int i = 0, size = idss.length; i < size; i++) {
 			Integer id = new Integer(idss[i]);
@@ -330,11 +346,9 @@ public class YewuService {
 	 */
 	public void auditOrder(Integer id, boolean auditResult, String auditReason,
 			Integer auditID) {
-		System.out
-				.println(".....................进入YewuService中的auditOrder方法....................");
+		System.out.println(".....................进入YewuService中的auditOrder方法....................");
 		Orderaudit orderAudit = orderauditDAO.findById(id);
-		Renkanshu renkanshu = renkanshuDAO.findById(orderAudit
-				.getRenkanbianhao());
+		Renkanshu renkanshu = renkanshuDAO.findById(orderAudit.getRenkanbianhao());
 		Yewuyuan auditYwy = yewuyuanDAO.findById(auditID);
 		String operType = orderAudit.getOperType();
 		System.out.println(operType);
@@ -366,29 +380,34 @@ public class YewuService {
 				yewu.setYewuTimestamp(orderAudit.getOperTimestamp());
 				yewu.setCreateTimestamp(orderAudit.getOperTimestamp());
 				yewu.setAuditTimestamp(new Date());
-				yewu.setYewuyuanByCreateYwyId(orderAudit
-						.getYewuyuanByOperYwyId());
+				yewu.setYewuyuanByCreateYwyId(orderAudit.getYewuyuanByOperYwyId());
 				yewu.setYewuyuanByAuditYwyId(auditYwy);
 				yewu.setState("N");
 				yewuDAO.save(yewu);
+				
+				System.out.println("--------------------yewuService-remark开始处-----------------------");
 
-				Remark remark = (Remark) remarkDAO.findByOrderauditId(
-						orderAudit.getId()).get(0);
+				Remark remark = (Remark) remarkDAO.findByOrderauditId(orderAudit.getId()).get(0);
 				String remarkContent = remark.getOperContent();
 				remarkContent += "  审核人：" + auditYwy.getYwyXingming()
 						+ ", 审核时间：" + timeStamp + ", 审核结果：通过！" + ",审核理由："
 						+ auditReason;
 				remark.setOperContent(remarkContent);
+				System.out.println("--------------------yewuService-remark-1-----------------------");
 				remark.setAuditTime(timeStamp);
+				System.out.println("--------------------yewuService-remark-2-----------------------");
 				remark.setAuditYwyName(auditYwy.getYwyXingming());
+				System.out.println("--------------------yewuService-remark-3-----------------------");
 				remark.setState("N");
 				remarkDAO.merge(remark);
+				System.out.println("--------------------yewuService-remark结束处-----------------------");
 
 				// 审核通过
 				content = "添加订单--认刊书编号："
 						+ yewu.getRenkanshu().getRenkanbianhao() + " 广告客户："
 						+ yewu.getKanhu() + "的信息已通过审核，审核人："
 						+ auditYwy.getYwyXingming() + " 审核理由：" + auditReason;
+				System.out.println("--------------------yewuService-remark-4-----------------------");
 				// Map session = ActionContext.getContext().getSession();
 				// Integer loginid=(Integer) session.get("id");
 				// content=yewuyuanDAO.findById(loginid).getYwyXingming()+"审核订单——认刊书编号："+yewu.getRenkanshu().getBaogaobianhao()+" 广告客户："+yewu.getKanhu()+"通过";
@@ -443,8 +462,7 @@ public class YewuService {
 						.getYewuyuanByOperYwyId());
 				yewu.setAlterTimestamp(orderAudit.getOperTimestamp());
 				yewu.setState("D");
-				System.out
-						.println("~~~~~~~~~~~~~~~~~~~~~~~~~订单删除前~yewulist.size():~~~~~~~~~~~~~~~~~~~~~~"
+				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~订单删除前~yewulist.size():~~~~~~~~~~~~~~~~~~~~~~"
 								+ yewulist.size());
 				// yewuDAO.delete(yewu);
 				// 当某个认刊书的所有订单均删除时，同时删除该订单
@@ -505,7 +523,9 @@ public class YewuService {
 			}
 
 			// 审核通过，则删除orderaudit，修改时间20160906 16:47
+			
 			orderauditDAO.delete(orderAudit);
+			System.out.println("-------orderauditDAO.delete(orderAudit)-----");
 		} else {// 不通过
 			if (operType.equals("L")) { // 修改操作
 				Yewu yewu = yewuDAO.findById(orderAudit.getYewuId());
@@ -632,8 +652,7 @@ public class YewuService {
 			Short industryId, String ledId, Integer shichang, Integer pinci,
 			Date kaishishijian, Date jieshushijian, Integer shuliang,
 			String updateReason, Double kanlizongjia, Double kanlixiaoji) {
-		System.out
-				.println("…………………………………………进入yewuService.update………………………………………………");
+		System.out.println("………………进入yewuService.update………………");
 		Yewuyuan operUser = yewuyuanDAO.findById(userID);
 		System.out.println("operUser:" + operUser);
 		Led led = ledDAO.findById(ledId);
@@ -658,6 +677,10 @@ public class YewuService {
 		if (!guanggaoneirong.equals(yewu.getGuanggaoneirong())) {
 			remarkContent += "广告内容：" + yewu.getGuanggaoneirong() + " 修改为 "
 					+ guanggaoneirong + "; ";
+		}
+		if (!kanlizongjia.equals(yewu.getRenkanshu().getKanlizongjia())) {
+			remarkContent += "合计实付：" + yewu.getRenkanshu().getKanlizongjia()
+					+ " 修改为 " + kanlizongjia + "; ";
 		}
 		if (!industryId.equals(yewu.getIndustry().getIndustryId())) {
 			remarkContent += "行业：" + yewu.getIndustry().getIndustryDesc()
@@ -684,8 +707,12 @@ public class YewuService {
 					+ " 修改为 " + sdf.format(jieshushijian) + "; ";
 		}
 		if (!shuliang.equals(yewu.getShuliang())) {
-			remarkContent += "数量：" + yewu.getShuliang() + "周 修改为 " + shuliang
+			remarkContent += "投放时长：" + yewu.getShuliang() + "周 修改为 " + shuliang
 					+ "周; ";
+		}
+		if (!kanlixiaoji.equals(yewu.getKanlijiaxiaoji())) {
+			remarkContent += "刊例价小计：" + yewu.getShuliang() + "元 修改为 " + shuliang
+					+ "元; ";
 		}
 		remarkContent += "<br>" + "修改理由：" + updateReason;
 		// if (!state.equals(yewu.getState())) {
@@ -788,72 +815,10 @@ public class YewuService {
 		Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
 		String tsStr = dateStr;
 		timeStamp = Timestamp.valueOf(tsStr);
-		
-
-		// 修改认刊书里的刊户，行业
-		String myrenkanbianhao = orderaudit.getRenkanbianhao();
-		
-		String messageTmp = "";
-
-		Renkanshu renkanshuinstance = (Renkanshu) renkanshuDAO
-				.findByRenkanbianhao(myrenkanbianhao).get(0);
-		// 后台验证认刊书内容修改了才进行数据库端操作
-		if (renkanshuinstance.getGuangaokanhu().equals(kanhu)) {
-		} else {
-			messageTmp += "将广告刊户 " + renkanshuinstance.getGuangaokanhu()
-					+ " 修改为 " + kanhu + " ";
-			renkanshuinstance.setGuangaokanhu(kanhu);
-			
-			orderaudit.setKanhu(kanhu);
-		}
-		if (renkanshuinstance.getYwyId() == yewuyuan) {
-		} else {
-			messageTmp += "将业务员 "
-					+ yewuyuanDAO.findById(renkanshuinstance.getYwyId())
-							.getYwyXingming() + " 修改为 "
-					+ yewuyuanDAO.findById(yewuyuan).getYwyXingming() + " ";
-			renkanshuinstance.setYwyId(yewuyuan);
-			
-			orderaudit.setYewuyuanByYwyId(yewuyuanDAO.findById(yewuyuan));;
-		}
-		if (renkanshuinstance.getKanlizongjia() == kanlizongjia) {
-		} else {
-			messageTmp += "将合计实付 " + renkanshuinstance.getKanlizongjia()
-					+ " 修改为 " + kanlizongjia + " ";
-			renkanshuinstance.setKanlizongjia(kanlizongjia);
-		}
-		if (renkanshuinstance.getZhekou() == zhekou) {
-		} else {
-			messageTmp += "将折扣 " + renkanshuinstance.getZhekou() + " 修改为 "
-					+ zhekou + " ";
-			renkanshuinstance.setZhekou(zhekou);
-		}
-		if(renkanshuinstance.getIndustry().getIndustryId() == industryId){
-			
-		}else {
-			messageTmp += "将广告所属行业 " + renkanshuinstance.getIndustry().getIndustryDesc() + " 修改为 "
-					+ industry.getIndustryDesc() + " ";
-			renkanshuinstance.setIndustry(industry);
-			
-			orderaudit.setIndustry(industry);
-		}
-		if(renkanshuinstance.getGuanggaoneirong().equals(guanggaoneirong)){
-		}else {
-			messageTmp += "将广告内容 " + renkanshuinstance.getGuanggaoneirong() + " 修改为 "
-					+ guanggaoneirong + " ";
-			renkanshuinstance.setGuanggaoneirong(guanggaoneirong);
-			
-			orderaudit.setGuanggaoneirong(guanggaoneirong);
-		}
-		if("".equals(messageTmp)){
-			messageTmp += " 用户修改了上画点位信息";
-		}
-		renkanshuDAO.merge(renkanshuinstance);
-
 		/**
 		 * 增加刊户和类型可以修改 160902 16:03
 		 */
-		
+		orderaudit.setKanhu(kanhu);
 		orderaudit.setLeixing(leixing);
 		orderaudit.setKanlijiaxiaoji(kanlixiaoji);
 
@@ -872,8 +837,45 @@ public class YewuService {
 		orderaudit.setOperTimestamp(new Date());
 		orderaudit.setOperType("A");
 		orderauditDAO.merge(orderaudit);
-		
-		
+
+		// 同时修改认刊书里的刊户，行业
+		String myrenkanbianhao = orderaudit.getRenkanbianhao();
+		System.out.println(myrenkanbianhao);
+
+		String messageTmp = "";
+
+		Renkanshu renkanshuinstance = (Renkanshu) renkanshuDAO
+				.findByRenkanbianhao(myrenkanbianhao).get(0);
+		// 后台验证认刊书内容修改了才进行数据库端操作
+		if (renkanshuinstance.getGuangaokanhu().equals(kanhu)) {
+		} else {
+			messageTmp += "将广告刊户 " + renkanshuinstance.getGuangaokanhu()
+					+ " 修改为 " + kanhu + " ";
+			renkanshuinstance.setGuangaokanhu(kanhu);
+		}
+		if (renkanshuinstance.getYwyId() == yewuyuan) {
+		} else {
+			messageTmp += "将业务员 "
+					+ yewuyuanDAO.findById(renkanshuinstance.getYwyId())
+							.getYwyXingming() + " 修改为 "
+					+ yewuyuanDAO.findById(yewuyuan).getYwyXingming() + " ";
+			renkanshuinstance.setYwyId(yewuyuan);
+		}
+		if (renkanshuinstance.getKanlizongjia() == kanlizongjia) {
+		} else {
+			messageTmp += "将合计实付 " + renkanshuinstance.getKanlizongjia()
+					+ " 修改为 " + kanlizongjia + " ";
+			renkanshuinstance.setKanlizongjia(kanlizongjia);
+		}
+		if (renkanshuinstance.getZhekou() == zhekou) {
+		} else {
+			messageTmp += "将折扣 " + renkanshuinstance.getZhekou() + " 修改为 "
+					+ zhekou + " ";
+			renkanshuinstance.setZhekou(zhekou);
+		}
+
+		renkanshuDAO.merge(renkanshuinstance);
+
 		// 添加remark记录，以显示在业务审核页面
 		// 删除之前的remark记录
 		Remark remark = (Remark) remarkDAO.findByOrderauditId(

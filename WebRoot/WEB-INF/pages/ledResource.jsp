@@ -115,7 +115,7 @@
 		    	datatype:"json",
 		    	colNames:['屏幕代码','屏幕名称','安装位置','开始时间','结束时间','可播时长(小时)','典型刊例价格（60次/15秒）','状态'],
 	//	    	shrinkToFit:false,
-		    	height:320,
+		    	height:400,
 		    	rowNum:<s:property value="@com.nfledmedia.dynamicQuoSys.cons.CommonConstant@DEFAULT_PAGE_SIZE"/>,
 		    	rowList: [10, 20, 30],
         		pager: "jqgrid-pager",

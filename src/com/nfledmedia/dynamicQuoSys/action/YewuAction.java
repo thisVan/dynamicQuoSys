@@ -30,6 +30,7 @@ import com.nfledmedia.dynamicQuoSys.entity.Remark;
 import com.nfledmedia.dynamicQuoSys.entity.Yewu;
 import com.nfledmedia.dynamicQuoSys.entity.Yewuyuan;
 import com.nfledmedia.dynamicQuoSys.service.BumenService;
+import com.nfledmedia.dynamicQuoSys.service.OrderauditService;
 import com.nfledmedia.dynamicQuoSys.service.RemarkService;
 import com.nfledmedia.dynamicQuoSys.service.YewuService;
 import com.nfledmedia.dynamicQuoSys.service.YewuyuanService;
@@ -83,6 +84,8 @@ public class YewuAction extends SuperAction implements ModelDriven<Yewu> {
 
 	// 业务员二级联动接收选中部门
 	private String selectbumenid;
+	//认刊书审核
+	private String renkanbianhao;
 
 	private YewuyuanService yewuyuanService;
 
@@ -102,6 +105,17 @@ public class YewuAction extends SuperAction implements ModelDriven<Yewu> {
 
 	public void setBumenService(BumenService bumenService) {
 		this.bumenService = bumenService;
+	}
+	
+	public OrderauditService orderauditService;
+	
+
+	public OrderauditService getOrderauditService() {
+		return orderauditService;
+	}
+
+	public void setOrderauditService(OrderauditService orderauditService) {
+		this.orderauditService = orderauditService;
 	}
 
 	// 接收myauditorderupdatepage.jsp 页面传来的部分数据
@@ -601,8 +615,7 @@ public class YewuAction extends SuperAction implements ModelDriven<Yewu> {
 			}
 		}
 
-		System.out
-				.println("-----------------------------------------------------");
+		System.out.println("-----------------------------------------------------");
 		System.out.println("集合大小：" + tset.size());
 		System.out.println("数组长度：" + ratios.length);
 		JSONArray jsonArray = new JSONArray();
@@ -774,8 +787,7 @@ public class YewuAction extends SuperAction implements ModelDriven<Yewu> {
 				+ " ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
 		Page result = null;
 		if (_search == false) {
-			result = yewuService
-					.getMyOrderAuditList(sidx, sord, page, rows, id);
+			result = yewuService.getMyOrderAuditList(sidx, sord, page, rows, id);
 			System.out
 					.println("^^^^^^^^^^^^^^^^^^^^^^^^^已获取我的审核列表数据^^^^^^^^^^^^^^^^^");
 		} else {
@@ -852,6 +864,85 @@ public class YewuAction extends SuperAction implements ModelDriven<Yewu> {
 		jsonObject.put("state", 0);
 
 		jsonObject.put("info", "修改成功");
+		sentMsg(jsonObject.toString());
+		return null;
+	}
+	
+	public String renkanshuAuditList() throws Exception {
+//		List renkanbianhaoList=orderauditService.getRenkanshubianhaoForAudit();
+//		System.out.println("获取的认刊书编号:");
+//		for(int i=0;i<renkanbianhaoList.size();i++){
+//			System.out.println(renkanbianhaoList.get(i)+"   "+renkanbianhaoList.get(i).getClass());
+//		}
+		Page result = null;
+		if (_search == false) {
+			result = yewuService.getRenkanshuAuditList(sidx, sord, page, rows);
+			// System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^已获取审核列表数据^^^^^^^^^^^^^^^^^");
+		} else {
+			System.out.println("^^^^^^^^^^^^^^^^^^^^^搜索条件^^^^^^^^^^^^^^^^^"+ searchString);
+			result = yewuService.getRenkanshuAuditListByKeyword(searchString, sidx,sord, page, rows);
+			System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^已获取审核列表数据^^^^^^^^^^^^^^^^^");
+		}
+
+		JSONObject jsonObject = PageToJson.toJsonWithoutData(result);
+		JSONArray jsonArray = new JSONArray();
+		List data = result.getResult();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		for (int i = 0, size = data.size(); i < size; i++) {
+
+			Object[] row = (Object[]) data.get(i);
+
+			JSONObject jsonObject1 = new JSONObject();
+			JSONArray jsonArray2 = new JSONArray(); // 求取cell
+
+			jsonObject1.put("id", row[0]); // 加入renkanbianhao
+
+			jsonArray2.put(row[0]);// 认刊编号
+			jsonArray2.put(row[1]);// 广告刊户
+//			jsonArray2.put(row[2]);// 业务员
+			jsonArray2.put(sdf.format(row[3]));// 签订日期
+			jsonArray2.put("添加");// 签订日期
+
+			jsonObject1.put("cell", jsonArray2); // 加入cell
+			jsonArray.put(jsonObject1);
+		}
+		jsonObject.put("rows", jsonArray); // 加入rows
+		// System.out.println("jsonObject:"+jsonObject.toString());
+		sentMsg(jsonObject.toString());
+		return null;
+	}
+	
+	public String OrderListForNewRenkanshu() throws Exception {
+		Page result = null;
+		result = yewuService.getOrderListForNewRenkanshu(renkanbianhao,sidx, sord, page, rows);
+		
+		JSONObject jsonObject = PageToJson.toJsonWithoutData(result);
+		JSONArray jsonArray = new JSONArray();
+		List data = result.getResult();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		for (int i = 0, size = data.size(); i < size; i++) {
+
+			Object[] row = (Object[]) data.get(i);
+
+			JSONObject jsonObject1 = new JSONObject();
+			JSONArray jsonArray2 = new JSONArray(); // 求取cell
+
+			jsonObject1.put("id", row[0]); // 加入renkanbianhao
+
+			jsonArray2.put(row[1]);// 上画位点
+			jsonArray2.put(row[2]);// 广告类型
+			jsonArray2.put(sdf.format(row[3]));// 开始时间
+			jsonArray2.put(sdf.format(row[4]));// 结束时间
+			jsonArray2.put(row[5]);// 频次
+			jsonArray2.put(row[6]);// 时长
+			jsonArray2.put(row[7]);// 刊例价小计
+			jsonArray2.put(row[8]);// 投放时长
+
+			jsonObject1.put("cell", jsonArray2); // 加入cell
+			jsonArray.put(jsonObject1);
+		}
+		jsonObject.put("rows", jsonArray); // 加入rows
 		sentMsg(jsonObject.toString());
 		return null;
 	}
@@ -1128,4 +1219,13 @@ public class YewuAction extends SuperAction implements ModelDriven<Yewu> {
 		this.addReason = addReason;
 	}
 
+	public String getRenkanbianhao() {
+		return renkanbianhao;
+	}
+
+	public void setRenkanbianhao(String renkanbianhao) {
+		this.renkanbianhao = renkanbianhao;
+	}
+
+	
 }

@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%! String url = "jdbc:mysql://localhost:3306/led_statistic?useUnicode=true&characterEncoding=GBK"; %>
 <html>
 <head>
-<base href="<%=basePath%>">
+<%-- <base href="<%=basePath%>"> --%>
 
 
 <meta http-equiv="pragma" content="no-cache">
@@ -655,12 +655,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<!--/.main-->
 
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+
 	<script src="js/king-common.js"></script>
-	<script src="js/chart.min.js"></script>
-	<!-- 	<script src="js/chart-data-index.js"></script>
-	<script src="js/easypiechart.js"></script>
+	<!-- <script src="js/easypiechart.js"></script>
 	<script src="js/easypiechart-data.js"></script> -->
 
 </body>

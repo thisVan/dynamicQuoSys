@@ -1,8 +1,11 @@
 package com.nfledmedia.dynamicQuoSys.dao;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.hibernate.LockMode;
+import org.hibernate.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -10,6 +13,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.nfledmedia.dynamicQuoSys.entity.Renkanshu;
+import com.nfledmedia.dynamicQuoSys.util.Page;
 
 /**
  	* A data access object (DAO) providing persistence and search support for Renkanshu entities.
@@ -39,6 +43,9 @@ public class RenkanshuDAO extends HibernateDaoSupport {
 	public static final String FENQI = "fenqi";
 	public static final String RENKANSHUBEIZHU = "renkanshubeizhu";
 	
+	
+	private static final String GET_RENKANSHU_AUDIT_LIST = "select r.renkanbianhao, r.guangaokanhu,"
+			+ "r.ywyId, r.qiandingriqi from Renkanshu r ";
 
 	
 	protected void initDao() {
@@ -46,10 +53,89 @@ public class RenkanshuDAO extends HibernateDaoSupport {
 	}
 	
 	
+	public Page getRenkanshuAuditList(String sidx, String sord, int pageNo, int pageSize) {
+		System.out.println("……………………………………renkanshuDAO:getRenkanshuAuditList:sidx:" + sidx);
+		return pagedQuery(GET_RENKANSHU_AUDIT_LIST + " where r.state='A'"+" order by r." + sidx + " " + sord,
+				pageNo, pageSize);
+	}
+	public Page getRenkanshuAuditListByKeyword(String keyword, String sidx, String sord,
+			int pageNo, int pageSize) {
+		return pagedQuery(GET_RENKANSHU_AUDIT_LIST + keyword + " order by r." + sidx + " "
+				+ sord, pageNo, pageSize);
+	}
 	
 	
 
-	
+	public Page pagedQuery(String hql, int pageNo, int pageSize,
+			Object... values) {
+		// Assert.hasText(hql);
+		// Assert.isTrue(pageNo >= 1, "页码应该不小于1");
+		// Count查询
+		String countQueryString = " select count (*) "
+				+ removeSelect(removeOrders(hql));
+		// System.out.print(hql);
+		// System.out.print( getHibernateTemplate().find(countQueryString,
+		// values));
+		List countlist = getHibernateTemplate().find(countQueryString, values);
+		long totalCount = countlist.isEmpty() ? 0 : (Long) countlist.get(0);
+
+		if (totalCount < 1)
+			return new Page();
+		// 实际查询返回分页对象
+		int startIndex = Page.getStartOfPage(pageNo, pageSize);
+		Query query = createQuery(hql, values);
+		List list = query.setFirstResult(startIndex).setMaxResults(pageSize)
+				.list();
+
+		return new Page(startIndex, totalCount, pageSize, list);
+	}
+	/**
+	 * 去除hql的orderby 子句，用于pagedQuery.
+	 *
+	 * @see #pagedQuery(String,int,int,Object[])
+	 */
+	private static String removeOrders(String hql) {
+		// Assert.hasText(hql);
+		Pattern p = Pattern.compile("order\\s*by[\\w|\\W|\\s|\\S]*",
+				Pattern.CASE_INSENSITIVE);
+		Matcher m = p.matcher(hql);
+		StringBuffer sb = new StringBuffer();
+		while (m.find()) {
+			m.appendReplacement(sb, "");
+		}
+		m.appendTail(sb);
+		return sb.toString();
+	}
+	/**
+	 * 去除hql的select 子句，未考虑union的情况,用于pagedQuery.
+	 *
+	 * @see #pagedQuery(String,int,int,Object[])
+	 */
+	private static String removeSelect(String hql) {
+		// Assert.hasText(hql);
+		int beginPos = hql.toLowerCase().indexOf("from");
+		// Assert.isTrue(beginPos != -1, " hql : " + hql +
+		// " must has a keyword 'from'");
+		return hql.substring(beginPos);
+	}
+	/**
+	 * 创建Query对象. 对于需要first,max,fetchsize,cache,cacheRegion等诸多设置的函数,可以在返回Query后自行设置.
+	 * 留意可以连续设置
+	 * @param values 可变参数.
+	 */
+	public Query createQuery(String hql, Object... values) {
+		// Assert.hasText(hql);
+		Query query = getSession().createQuery(hql);
+		for (int i = 0; i < values.length; i++) {
+			query.setParameter(i, values[i]);
+		}
+		return query;
+	}
+
+	public List find(String hql, Object... params) {
+		return this.getHibernateTemplate().find(hql, params);
+	}
+
 	
 	public List find(String hql) {
 //		System.out.println(hql);

@@ -37,6 +37,10 @@ public class RenkanshuService {
     	renkanshuDAO.save(renkanshu);
     }
     
+    public void mergeRenkanshu(Renkanshu renkanshu){
+    	renkanshuDAO.merge(renkanshu);
+    }
+    
     /**
 	 * 
 	 * validateRenkanshu: 校验认刊书编号. <br/> 
@@ -61,7 +65,11 @@ public class RenkanshuService {
 	
 	public Renkanshu loadRenkanshuByID(String renkanshuId){
 		Renkanshu renkanshu=null;
-		renkanshu=renkanshuDAO.findById(renkanshuId);
+		try{
+			renkanshu=renkanshuDAO.findById(renkanshuId);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		return renkanshu;
 	}
     

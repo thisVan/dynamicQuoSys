@@ -67,7 +67,7 @@
 					<label>&nbsp;&nbsp;&nbsp;&nbsp;</label>
 				</div>
 				<div class="login-panel panel panel-default">
-					<div class="panel-heading" style="color: green;" align="center">认刊书提交成功，请等待审核！</div>
+					<div class="panel-heading" style="color: green;" align="center">认刊书提交成功！</div>
 					<div class="panel-body">
 
 						<div align="center" style="font-size: larger;">${session.successmessage }<br>

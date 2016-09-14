@@ -143,7 +143,7 @@
 			<%count++;}%>
 			
 			<%
-			String queryyewushangye = "select kanhu, leixing, ywy_id, led, shichang, pinci, shichang * pinci as bofangshijian, kaishishijian, jieshushijian, kanlijiaxiaoji from led_statistic.yewu where state = 'N' and leixing = '商业广告'";
+			String queryyewushangye = "select kanhu, leixing, ywy_id, led, shichang, pinci, shichang * pinci as bofangshijian, kaishishijian, jieshushijian, kanlijiaxiaoji from led_statistic.yewu where state= 'N' and leixing = '商业广告'";
 					rs = stmt.executeQuery(queryyewushangye);
 					count = 0;
 					String s_kanhu = "";
@@ -174,7 +174,7 @@
 					
 					
 					<%
-					String arrayyewuhuzeng = "select kanhu, leixing, ywy_id, led, shichang, pinci, shichang * pinci as bofangshijian, kaishishijian, jieshushijian, kanlijiaxiaoji from yewu where state = 'N' and leixing = '互赠广告'";
+					String arrayyewuhuzeng = "select kanhu, leixing, ywy_id, led, shichang, pinci, shichang * pinci as bofangshijian, kaishishijian, jieshushijian, kanlijiaxiaoji from yewu where state= 'N' and leixing = '互赠广告'";
 							rs = stmt.executeQuery(arrayyewuhuzeng);
 							count = 0;
 							String h_kanhu = "";
@@ -204,7 +204,7 @@
 							
 
 							<%
-							String queryyewuzengbo = "select kanhu, leixing, ywy_id, led, shichang, pinci, shichang * pinci as bofangshijian, kaishishijian, jieshushijian, kanlijiaxiaoji from yewu where state = 'N' and leixing = '赠播广告'";
+							String queryyewuzengbo = "select kanhu, leixing, ywy_id, led, shichang, pinci, shichang * pinci as bofangshijian, kaishishijian, jieshushijian, kanlijiaxiaoji from yewu where state= 'N' and leixing = '赠播广告'";
 									rs = stmt.executeQuery(queryyewuzengbo);
 									count = 0;
 									String z_kanhu = "";
@@ -234,7 +234,7 @@
 									
 
 									<%
-									String queryyewugongyi = "select kanhu, leixing, ywy_id, led, shichang, pinci, shichang * pinci as bofangshijian, kaishishijian, jieshushijian, kanlijiaxiaoji from yewu where state = 'N' and leixing = '公益广告'";
+									String queryyewugongyi = "select kanhu, leixing, ywy_id, led, shichang, pinci, shichang * pinci as bofangshijian, kaishishijian, jieshushijian, kanlijiaxiaoji from yewu where state= 'N' and leixing = '公益广告'";
 											rs = stmt.executeQuery(queryyewugongyi);
 											count = 0;
 											String g_kanhu = "";
@@ -263,7 +263,7 @@
 											<%count++;}%>
 											
 											<%
-											String queryyewuqita = "select kanhu, leixing, ywy_id, led, shichang, pinci, shichang * pinci as bofangshijian, kaishishijian, jieshushijian, kanlijiaxiaoji from yewu where state = 'N' and leixing = '其它广告'";
+											String queryyewuqita = "select kanhu, leixing, ywy_id, led, shichang, pinci, shichang * pinci as bofangshijian, kaishishijian, jieshushijian, kanlijiaxiaoji from yewu where state= 'N' and leixing = '其它广告'";
 													rs = stmt.executeQuery(queryyewuqita);
 													count = 0;
 													String q_kanhu = "";
