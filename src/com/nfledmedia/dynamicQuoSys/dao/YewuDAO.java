@@ -42,11 +42,14 @@ public class YewuDAO extends HibernateDaoSupport {
 			+ "y.led.ledId, y.led.ledName, y.shichang, y.pinci,y.kaishishijian,y.jieshushijian,y.shuliang,y.kanlijiaxiaoji,y.shiduan from Yewu y left join y.renkanshu left join y.renkanshu.industry left join y.yewuyuan left join y.led ";
 	private static final String GET_YWYYEJI_LIST = "select y.goalId, y.goalYwy.bumen.bmMingcheng, y.goalYwy.ywyId, y.goalYwy.ywyXingming,"
 			+ "y.goalMubiao from Ywymubiao y left join y.goalYwy left join y.goalYwy.bumen where y.goalNiandu like 2016";
-	private static final String GET_DINGDANGUANLI_LIST = "select y.yewuId, y.renkanshu.renkanbianhao, y.kanhu,y.renkanshu.industry.industryDesc, y.leixing, y.renkanshu.qiandingriqi, "
+	private static final String GET_DINGDANGUANLI_LIST = "select y.yewuId, y.renkanshu.renkanbianhao, y.kanhu,y.yewuyuan.ywyXingming,y.renkanshu.industry.industryDesc, y.leixing, y.renkanshu.qiandingriqi, "
 			+ "y.led.ledId, y.led.ledName, y.shichang, y.pinci,y.kaishishijian,y.jieshushijian,y.shuliang,y.state from Yewu y left join y.renkanshu left join y.renkanshu.industry left join y.yewuyuan left join y.led ";
 	private static final String GET_RENKANSHU_BY_BIANHAO = "select y.id from Yewu y left join y.renkanshu where y.state='N' and y.renkanshu.renkanbianhao = ";
 	private static final String GET_CLIENT_NAME = "select distinct y.kanhu, y.kanhu from Yewu y ";
 	private static final String GET_RENKANSHUBIANHAO = "select distinct y.renkanshu.renkanbianhao from Yewu y left join y.renkanshu";
+	
+	
+	
 	// private static final String
 	// GET_PIE_DATA="SELECT c.hynm AS hyname, c.bfsc/c.hyshichang*100 AS hyzpl FROM (SELECT t.hyname AS hynm, SUM(t.ggbfsc) AS bfsc,SUM(t.ledsc) AS hyshichang FROM (SELECT r.hangye AS hyname, "+
 	// "y.pinci*y.shichang AS ggbfsc, l.ledBofangshichang AS ledsc, y.kaishishijian, y.jieshushijian FROM Yewu y,Renkanshu r,Led l WHERE y.renkanbianhao = r.renkanbianhao AND y.led = l.led_id) t "+
@@ -105,6 +108,8 @@ public class YewuDAO extends HibernateDaoSupport {
 		return find(GET_RENKANSHU_BY_BIANHAO + "'" + renkanshubianhaoDelete
 				+ "'");
 	}
+	
+	
 
 	public List getAllClient() {
 		return find(GET_CLIENT_NAME);

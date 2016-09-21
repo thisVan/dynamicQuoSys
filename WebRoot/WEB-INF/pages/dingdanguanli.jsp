@@ -44,7 +44,7 @@
 			<div class="col-lg-12">
 				<h3 class="page-header">
 					订单管理
-					</h1>
+					</h3>
 			</div>
 		</div>
 		<!--/.row-->
@@ -103,13 +103,13 @@
 						</select>
 					</div>
 			</div>
-			
+			<div class="col-sm-12"><lable>&nbsp;</lable></div>
 							
 			<div class="col-sm-2 pull-right">
 					<button class="btn btn-primary btn-sm" id="exactQuery">查询</button>
 					<button class="btn btn-danger btn-sm" id="clearExactForm">清除</button>
 			</div>
-			
+			<div class="col-sm-12"><lable>&nbsp;</lable></div>
 			</fieldset>
 		</form>
 		
@@ -117,8 +117,7 @@
 		   <div id="jqgrid-pager"></div>
 		
 	 </div>
-	 
-	 
+
 					</div>
 				</div>
 			</div>
@@ -281,13 +280,13 @@
 		    	url:"dingdanguanliList.action",
 		    	mtype:"GET",
 		    	datatype:"json",
-		    	colNames:['认刊编号','广告客户','类型','上画屏幕','开始时间','结束时间','时长','频次','状态',''],
+		    	colNames:['认刊编号','广告客户','业务员','类型','上画屏幕','开始时间','结束时间','时长','频次','状态',''],
 	//	    	shrinkToFit:false,
-		    	height:450,
+		    	height:400,
 		    	rowNum:<s:property value="@com.nfledmedia.dynamicQuoSys.cons.CommonConstant@DEFAULT_PAGE_SIZE"/>,
 		    	rowList: [10, 20, 30],
         		pager: "jqgrid-pager",
-        		multiselect:1,
+        		multiselect:!1,
         		editurl:"deleteOrder.action",
         		sortname:"renkanshu.qiandingriqi",
         		sortorder: "asc",
@@ -296,14 +295,20 @@
         			name:"renkanshu.renkanbianhao",
         			index:"renkanshu.renkanbianhao",
         			align:"center",
-        	 		width:"120px",  
+        	 		width:"100px",  
         			formatter:formatRenkanbianhao
         		},{
         			name:"kanhu",
         			index:"kanhu",
         			align:"center",
-        			width:"150px" ,
+        			width:"130px" ,
         			formatter:formatKanhu
+        				
+        		},{
+        			name:"yewuyuan",
+        			index:"yewuyuan",
+        			align:"center",
+        			width:"80px" 
         				
         		},{
         			name:"leixing",
@@ -321,23 +326,23 @@
         			sortable: !1,
         			search: !1,
         			align:"center",
-        			width:"100px"
+        			width:"90px"
         		},{
         			name:"jieshushijian",
         			sortable: !1,
         			search: !1,
         			align:"center",
-        			width:"100px" 
+        			width:"90px" 
         		},{
         			name:"shichang",
         			index:"shichang",
         			align:"center",
-        			width:"70px" 
+        			width:"50px" 
         		},{
         			name:"pinci",
         			index: "pinci",
         			align:"center",
-        			width:"70px"
+        			width:"50px"
         		},{
         			name:"state",
         			index:"state",
@@ -348,7 +353,7 @@
         			sortable: !1,
         			search: !1,
         			align:"center",
-        			width:"120px"
+        			width:"100px"
         		}],
         		gridComplete: function(data){
         			var ids = $("#jqgrid").jqGrid("getDataIDs");

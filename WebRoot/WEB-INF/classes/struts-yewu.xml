@@ -29,6 +29,10 @@
 		</action>
 		<action name="Audit" class="com.nfledmedia.dynamicQuoSys.action.OrderAuditAction" method="Audit">
 		</action>
+		
+		<action name="renkanshuAudit" class="com.nfledmedia.dynamicQuoSys.action.OrderAuditAction" method="renkanshuAudit">
+		</action>
+		
 		<action name="deleteOrder" class="com.nfledmedia.dynamicQuoSys.action.OrderAuditAction" method="deleteOrder">
 		</action>
 		<action name="downOrder" class="com.nfledmedia.dynamicQuoSys.action.OrderAuditAction" method="downOrder">
@@ -44,6 +48,10 @@
 		<action name="auditPage" class="com.nfledmedia.dynamicQuoSys.action.OrderAuditAction" method="auditPage">
 		     <result>/WEB-INF/pages/auditPage.jsp</result>
 		</action>
+		
+		<action name="auditRenkanshuPage" class="com.nfledmedia.dynamicQuoSys.action.OrderAuditAction" method="auditRenkanshuPage">
+		     <result>/WEB-INF/pages/auditRenkanshuPage.jsp</result>
+		</action>
 		<action name="fillIndustryClassify" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="fillIndustryClassify"> 
 		</action>
 		<action name="fillYewuyuanList" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="fillYewuyuanList"> 
@@ -53,6 +61,14 @@
 		</action>
 		
 		<action name="updatemyAuidtOrder" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="updatemyAuidtOrder">
+		</action>
+		
+		<action name="renkanshuAuditList" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="renkanshuAuditList">
+		</action>
+		<action name="OrderListForNewRenkanshu" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="OrderListForNewRenkanshu">
+		</action>
+		
+		<action name="renkanshuOrderAudit" class="com.nfledmedia.dynamicQuoSys.action.YewuAction" method="renkanshuOrderAudit">
 		</action>
 	
 	</package>

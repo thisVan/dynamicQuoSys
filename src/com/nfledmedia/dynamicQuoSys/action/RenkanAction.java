@@ -306,7 +306,7 @@ public class RenkanAction extends SuperAction {
 			String erromessage = (String) ServletActionContext.getRequest()
 					.getSession().getAttribute("erromessage");
 			if (erromessage == null || erromessage == "") {
-				erromessage = "提交失败，请检查认刊书是否填写完整，然后重试！";
+				erromessage = "提交失败，请检查输入的数据是否符合要求，然后重试！";
 				ServletActionContext.getRequest().getSession()
 						.setAttribute("erromessage", erromessage);
 			}
@@ -346,6 +346,7 @@ public class RenkanAction extends SuperAction {
 			// renkanshu.setFenqi(Integer.parseInt(fenqi));
 			renkanshu.setIndustry(industryin);
 			renkanshu.setRksTimestamp(ts);
+			renkanshu.setState("A");
 
 			System.out.println(renkanshu.toString());
 			// 业务员信息处理，包装
@@ -395,7 +396,7 @@ public class RenkanAction extends SuperAction {
 						+ renkanshu.getGuanggaoneirong() + " 行业："
 						+ renkanshu.getIndustry().getIndustryDesc() + " 广告类型："
 						+ guanggaoleixingledtable[i] + " 屏幕："
-						+ led.getLedName() + " 时长：" + shichangledtable[i]
+						+ orderaudit.getLed().getLedName() + " 时长：" + shichangledtable[i]
 						+ " 频次：" + pinciledtable[i] + " 开始时间：" + sdf.format(datestart)
 						+ " 结束时间：" + sdf.format(dateend) + " 数量："
 						+ guanggaoshuliangledtable[i];
@@ -404,7 +405,7 @@ public class RenkanAction extends SuperAction {
 				remark.setOperYwyName(OperYewuyuan.getYwyXingming());
 				remark.setYewu(yewu);
 				remark.setOperContent(remarkContent);
-				remark.setState("A");
+				remark.setState("T");//添加订单
 				remarkList.add(remark);
 
 				// Yewu yewu = new Yewu();

@@ -37,7 +37,7 @@
 			<div class="col-lg-12">
 				<h3 class="page-header">
 					订单审核
-					</h1>
+					</h3>
 			</div>
 		</div>
 		<!--/.row-->
@@ -63,7 +63,7 @@
 		</div>
 		<div class="form-group">
 			<label for="account" class="col-sm-2 control-label">业务员</label>
-			<div class="col-sm-4"><p class="form-control-static"><s:property value="yewuyuan"/></p></div>
+			<div class="col-sm-4"><p class="form-control-static"><s:property value="orderaudit.yewuyuanByYwyId.ywyXingming"/></p></div>
 		</div>
 		
 		<div class="form-group">

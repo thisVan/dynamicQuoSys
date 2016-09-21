@@ -45,7 +45,7 @@
 			<div class="col-lg-12">
 				<h3 class="page-header">
 					人员管理
-					</h1>
+					</h3>
 			</div>
 		</div>
 		<!--/.row-->
@@ -55,14 +55,12 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div id="add-renyuan" class="row">
-							&nbsp;&nbsp;&nbsp;&nbsp;<a href="addUser.action" class="btn btn-link btn-lg"><span
+							&nbsp;&nbsp;<a href="addUser.action" class="btn btn-link btn-lg"><span
 								class="glyphicon glyphicon-plus"></span> 添加人员
 							</a>
 						</div>
 					</div>
-					<div id="jqgrid-wrapper">
-		<div class="row" style="margin-bottom:10px;">
-			<div class="col-sm-3 pull-right">
+					<div class="col-sm-3 pull-right">
 				<div id="fuzzySearchbox" class="input-group input-group-sm searchbox">
 					<input type="search" id="searchText" class="form-control" placeholder="请输入关键字...">
 					<span class="input-group-btn">
@@ -70,10 +68,10 @@
 					</span>
 				</div>
 			</div>
-		</div>	
+		
 		<form class="form-horizontal" role="form" id="exactForm">
 			<fieldset>
-				<legend>查询条件</legend>
+				<legend>&nbsp;&nbsp;查询条件</legend>
 			<div class="col-sm-3">
 					<div class="input-group input-group-sm">
 						<div class="input-group-addon">部门</div>				
@@ -90,17 +88,18 @@
 						</select>
 					</div>
 			</div>				
-				<div class="col-sm-2">
+				<div class="col-sm-3">
 					<button class="btn btn-primary btn-sm" id="exactQuery">查询</button>
 					<button class="btn btn-danger btn-sm" id="clearExactForm">清除</button>
 				</div>
+				<div class="col-sm-12"><lable>&nbsp;</lable></div>
 			</fieldset>
 		</form>
 		
 		<table id="jqgrid" class="table table-striped table-hover" ></table>
-		   <div id="jqgrid-pager"></div>
+		   <div id="jqgrid-pager" ></div>
 		
-	 </div>
+	 				</div>
 				</div>
 			</div>
 		</div>
@@ -207,10 +206,10 @@
 		    }), e(), $("#jqgrid").length > 0 && t.jqGrid("navGrid","#jqgrid-pager",{
 		    	add:!1,
 		    	edit:!1,
-		    	del:!0,
+		    	del:!1,
 		    	view:!1,
 		    	search: !1,
-        		refresh:!0
+        		refresh:!1
 		    },{},{},{},{
 		    	multipleSearch: true,
 		    	multipleGroup:true
@@ -299,6 +298,6 @@
 		$(function(){
 			loadingDepartment();
 			loadingRole();
-		})		
+		});	
 	</script>
 </content>

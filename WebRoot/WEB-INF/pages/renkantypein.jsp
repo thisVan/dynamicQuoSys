@@ -225,6 +225,13 @@
 				alert("请输入广告频次！");
 				return false;
 			}
+			if(isNaN(pincivali[i].value)){
+				var j = i + 1;
+				var strt = "pinci" + j;
+				document.getElementById(strt).focus();
+				alert("请输入数字！");
+				return false;
+			}
 		}
 		var shichangvali = $("input[name='shichangledtable']");
 		for (var i = 0; i < shichangvali.length; i++) {
@@ -234,6 +241,31 @@
 				var strt = "shichang" + j;
 				document.getElementById(strt).focus();
 				alert("请输入广告时长！");
+				return false;
+			}
+			if(isNaN(shichangvali[i].value)){
+				var j = i + 1;
+				var strt = "shichang" + j;
+				document.getElementById(strt).focus();
+				alert("请输入数字！");
+				return false;
+			}
+		}
+		var shuliangvali = $("input[name='guanggaoshuliangledtable']");
+		for (var i = 0; i < shuliangvali.length; i++) {
+			if (shuliangvali[i].value == null
+					|| shuliangvali[i].value == '') {
+				var j = i + 1;
+				var strt = "guanggaoshuliang" + j;
+				document.getElementById(strt).focus();
+				alert("请输入投放时长！");
+				return false;
+			}
+			if(isNaN(shuliangvali[i].value)){
+				var j = i + 1;
+				var strt = "guanggaoshuliang" + j;
+				document.getElementById(strt).focus();
+				alert("请输入数字！");
 				return false;
 			}
 		}
@@ -330,13 +362,13 @@
 			<div class="col-lg-12">
 				<h3 class="page-header">
 					认刊书录入
-					</h1>
+					</h3>
 			</div>
 		</div>
 		<!--/.row-->
 
 
-		<div class="row">
+		<div class="row" >
 			<div class="col-lg-12">
 				<div align="center" style="font-size: large;color: red">${session.erromessage }</div>
 			</div>
@@ -392,7 +424,7 @@
 
 							<div class="col-lg-12">
 								<div class="form-group form-inline col-md-12 col-lg-6 has-error">
-									<label style="width: 24%;" for="dtp_input2"
+									<label style="width: 24%;text-align: left;" for="dtp_input2"
 										class="control-label">签订日期<span class="text-danger">*</span></label>
 									<!-- <div class="input-group date form_date " data-date=""
 											data-date-format="yyyy-MM-dd" data-link-field="dtp_input2"
@@ -411,7 +443,7 @@
 										</div> -->
 								</div>
 								<div class="form-group form-inline col-md-12 col-lg-6 has-error">
-									<label style="width: 24%;" class="control-label"
+									<label style="width: 24%;text-align: left;" class="control-label"
 										for="selectyewuyuan">业务员<span class="text-danger">*</span></label>
 									<select class="form-control" name="yewuyuan.ywyBumenid"
 										id="selectbumen" onchange="changeselectywy(this.value)"></select>
@@ -421,44 +453,44 @@
 
 
 								<div class="form-group form-inline col-md-12 col-lg-6 has-error">
-									<label style="width: 24%;" class="control-label"
+									<label style="width: 24%;text-align: left;" class="control-label"
 										for="renkanshubianhao">认刊书编号<span class="text-danger">*</span></label>
 									<input id="renkanshubianhao" class="form-control"
 										name="renkanshu.renkanbianhao">
 								</div>
 								<div class="form-group form-inline col-md-12 col-lg-6 has-error">
-									<label style="width: 24%;" class="control-label"
+									<label style="width: 24%;text-align: left;" class="control-label"
 										for="hetongbianhao">合同编号</label> <input id="hetongbianhao"
 										name="renkanshu.hetongbianhao" class="form-control ">
 								</div>
 								<div class="form-group form-inline col-md-12 col-lg-6 has-error">
-									<label style="width: 24%;" class="control-label"
+									<label style="width: 24%;text-align: left;" class="control-label"
 										for="baogaobianhao">报告编号</label> <input id="baogaobianhao"
 										name="renkanshu.baogaobianhao" class="form-control">
 								</div>
 								<div class="form-group form-inline col-md-12 col-lg-6 has-error">
 									<!-- 这里广告刊户拼写有误，如下拼写 -->
-									<label style="width: 24%;" class="control-label"
+									<label style="width: 24%;text-align: left;" class="control-label"
 										for="guangaokanhu">广告客户（全称）<span class="text-danger">*</span></label>
 									<input class="form-control" id="guangaokanhu"
 										name="renkanshu.guangaokanhu">
 								</div>
 								<div class="form-group form-inline col-md-12 col-lg-6 has-error">
-									<label style="width: 24%;" class="control-label"
+									<label style="width: 24%;text-align: left;" class="control-label"
 										for="guanggaodailigongsi">广告代理公司（全称）</label> <input
 										id="guanggaodailigongsi" name="renkanshu.guanggaodailigongsi"
 										class="form-control">
 								</div>
 
 								<div class="form-group form-inline col-md-12 col-lg-6 has-error">
-									<label style="width: 24%;" class="control-label"
+									<label style="width: 24%;text-align: left;" class="control-label"
 										for="guanggaohangye">广告所属行业<span class="text-danger">*</span></label>
 									<select name="industrycls" class="form-control"
 										id="industryclassify" onclick="changeselectindc(this.value)"></select>
 									<select name="industry.industryDesc" class="form-control"
 										id="guanggaohangye"></select>
 								</div>
-								<div class="form-group col-md-6 col-lg-12 has-error">
+								<div class="form-group col-md-12 col-lg-12 has-error">
 									<label class="control-label" for="baogaobianhao">广告内容（品牌、产品）<span
 										class="text-danger">*</span></label>
 									<textarea id="guanggaoneirong" name="renkanshu.guanggaoneirong"
@@ -782,10 +814,10 @@
 										<legend style="font-size: 1.4rem;font-weight: bold;">
 											上画点位<span class="text-danger">*</span>
 										</legend>
-										<div class="col-lg-12">
+										<!-- <div class="col-lg-12"> -->
 											<!-- <label style="font-size: 115%">上画点位</label> -->
 											<div class="form-group">
-												<table id="table" class="table-responsive">
+												<table id="table" class="table-responsive" >
 													<thead>
 														<tr>
 															<th data-field="shanghuadianwei" data-sortable="true">上画点位</th>
@@ -804,8 +836,8 @@
 													<tbody></tbody>
 												</table>
 											</div>
-										</div>
-										<div class="col-lg-12">
+										<!-- </div> -->
+										<div class="form-group">
 											<a class="btn btn-link" id="addled"><span
 												class="glyphicon glyphicon-plus"></span> 添加上画点位</a>
 										</div>
@@ -813,18 +845,18 @@
 								</div>
 								<div class="col-1g-12">
 									<div class="col-md-4 form-group form-inline">
-										<label style="width: 24%" for="kanliheji">刊例合计(元)</label> <input
+										<label style="width: 24%;text-align: left;" for="kanliheji">刊例合计(元)</label> <input
 											class="form-control" id="kanliheji" readonly="true"
 											placeholder="刊例总价" />
 									</div>
 									<div class="col-md-4 form-group form-inline has-error">
-										<label style="width: 24%" for="hejishifujine">实付合计(元)<span
+										<label style="width: 24%;text-align: left;" for="hejishifujine">实付合计(元)<span
 											class="text-danger">*</span></label> <input
 											class="form-control text-muted" id="hejishifujine"
 											name="kanlizongjia" onchange="changezhekou()" />
 									</div>
 									<div class="col-md-4 form-group form-inline has-success">
-										<label style="width: 24%" for="cankaozhekou">折扣(参考)</label>
+										<label style="width: 24%;text-align: left;" for="cankaozhekou">折扣(参考)</label>
 										<script type="text/javascript">
 											function changezhekou() {
 												var hejishifu = document
@@ -855,7 +887,12 @@
 										</div>
 									</div>
 								</div>
-
+								
+								<div class="form-group col-md-12 col-lg-12 has-error">
+									<label class="control-label" for="renkanshubeizhu">备注</label>
+									<textarea id="renkanshubeizhu" name="renkanshu.renkanshubeizhu"
+										class="form-control" rows="2""></textarea>
+								</div>
 
 								<!-- 
 								<script type="text/javascript">
@@ -923,11 +960,8 @@
 										<tbody></tbody>
 									</table>
 								</div>
-								<div class="form-group col-md-6 col-lg-12 has-error">
-									<label class="control-label" for="renkanshubeizhu">备注</label>
-									<textarea id="renkanshubeizhu" name="renkanshu.renkanshubeizhu"
-										class="form-control" rows="2""></textarea>
-								</div>
+								
+								
 
 								<div align="center" class="col-md-12">
 									<button type="button" id="store" class="btn">保存</button>

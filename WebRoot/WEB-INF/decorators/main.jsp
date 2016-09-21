@@ -22,26 +22,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <title><s:text name="南方新视界动态报价系统"/></title>
         <meta name="viewport" content="width=device-width">
 
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-		<link rel="shortcut icon" href="img/favicon.ico">
-		
+        <!-- Place ico and apple-touch-icon.png in the root directory -->
 		<link rel="icon" href="images/logo.png" type="image/x-icon" />
         <link rel="shortcut icon" href="images/logo.png" type="image/x-icon" />
         
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-        <link href="css/bootstrap-table.css" rel="stylesheet">
-
         <link rel="stylesheet" href="css/bootstrap-theme.css">
-
         <link href="css/styles.css" rel="stylesheet">
         <link href="css/laydate.css" rel="stylesheet">
 
         <!--Icons-->
-        <script src="js/lumino.glyphs.js"></script>
+        
         <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
-         <script src="js/bootstrap-table.js"></script>
-
 	    <script src="js/bootstrap.min.js"></script>
+	    <script src="js/lumino.glyphs.js"></script>
 	    <script src="js/chart.min.js"></script>
 
 	    <link rel="stylesheet" href="css/main.css">
@@ -60,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!--[if (lt IE 9) & (!IEMobile)]>
 		<script src="js/vendor/html5shiv.min.js"></script>
 		<script src="js/vendor/respond.min.js"></script>   
-		<![endif]
+		<![endif] -->
 		<decorator:head/>
     </head>
     <body>

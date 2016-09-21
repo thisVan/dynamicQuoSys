@@ -12,8 +12,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%! String url = "jdbc:mysql://localhost:3306/led_statistic?useUnicode=true&characterEncoding=GBK"; %>
 <html>
 <head>
-<base href="<%=basePath%>">
-
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -27,14 +25,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/styles.css" rel="stylesheet" media="screen">
+<link href="css/laydate.css" rel="stylesheet">
 
 <!--Icons-->
 <script src="js/lumino.glyphs.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/king-common.js"></script>
 
 <!--[if lt IE 9]>
 	<script src="js/html5shiv.js"></script>
 	<script src="js/respond.min.js"></script>
-		<![endif]-->
+  <![endif]-->
 
 <script type="text/javascript">
 	
@@ -654,14 +655,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	</div>
 	<!--/.main-->
-
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/king-common.js"></script>
-	<script src="js/chart.min.js"></script>
-	<!-- 	<script src="js/chart-data-index.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script> -->
 
 </body>
 </html>

@@ -100,9 +100,9 @@
 		    	url:"myOrderAuditList.action",
 		    	mtype:"GET",
 		    	datatype:"json",
-		    	colNames:['认刊编号','广告客户','类型','上画屏幕','广告内容','操作类型',''],
+		    	colNames:['认刊编号','广告客户','类型','上画屏幕','广告内容','操作类型','审核结果',''],
 	//	    	shrinkToFit:false,
-		    	height:320,
+		    	height:400,
 		    	rowNum:<s:property value="@com.nfledmedia.dynamicQuoSys.cons.CommonConstant@DEFAULT_PAGE_SIZE"/>,
 		    	rowList: [10, 20, 30],
         		pager: "jqgrid-pager",
@@ -142,6 +142,11 @@
         			index:"operType",
         			align:"center",
         			width:"50px"
+        		},{
+        			name:"orderState",
+        			index:"orderState",
+        			align:"center",
+        			width:"100px"
         		},{
             		name:"actions",
             		sortable: !1,

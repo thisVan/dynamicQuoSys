@@ -61,6 +61,11 @@
 		</div>
 		
 		<div class="form-group">
+			<label for="account" class="col-sm-2 control-label">业务员</label>
+			<div class="col-sm-4"><input type="text" class="form-control input-sm" name="yewu.yewuyuan.ywyXingming"  value='<s:property value="yewu.yewuyuan.ywyXingming"/>'maxlength="20" disabled></div>
+		</div>
+		
+		<div class="form-group">
 			<label for="account" class="col-sm-2 control-label">类型</label>
 			<div class="col-sm-4"><input type="text" class="form-control input-sm" name="yewu.leixing"  value='<s:property value="yewu.leixing"/>'maxlength="20" disabled></div>
 		</div>

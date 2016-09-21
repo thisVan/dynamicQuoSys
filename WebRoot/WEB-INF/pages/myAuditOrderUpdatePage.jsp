@@ -281,7 +281,7 @@
 						$("input[name='jieshushijian']").val()==originalJieshushijian &&
 						$("input[name='shuliang']").val()==originalShuliang &&
 						$("input[name='kanlixiaoji']").val()==orginalKanlijiaxiaoji &&
-						$("textarea[name='guanggaoneirong']").val()==orginalGuanggaoneirong)
+						$("textarea[name='guanggaoneirong']").val()==orginalGuanggaoneirong) 
 				{
 					alert("您没有更改信息！");
 					return;

@@ -37,7 +37,7 @@
 			<div class="col-lg-12">
 				<h3 class="page-header">
 					订单修改
-					</h1>
+					</h3>
 			</div>
 		</div>
 		<!--/.row-->
@@ -52,14 +52,34 @@
 			<label for="account" class="col-sm-2 control-label">认刊编号</label>
 			<div class="col-sm-4"><input type="text" class="form-control input-sm" name="yewu.renkanshu.renkanbianhao"  value='<s:property value="yewu.renkanshu.renkanbianhao"/>'maxlength="20" disabled></div>
 		</div>
+		
 		<div class="form-group">
 			<label for="account" class="col-sm-2 control-label">广告客户</label>
 			<div class="col-sm-4"><input type="text" class="form-control input-sm" name="kanhu"  value='<s:property value="yewu.kanhu"/>'maxlength="20" disabled></div>
 		</div>
 		
+		
 		<div class="form-group">
 			<label for="account" class="col-sm-2 control-label">签订日期</label>
 			<div class="col-sm-4"><input type="text" class="form-control input-sm" name="yewu.renkanshu.qiandingriqi"  value='<s:property value="qiandingriqi"/>' maxlength="20" disabled></div>
+		</div>
+		
+		<div class="form-group">
+			<label for="account" class="col-sm-2 control-label">业务员</label>
+			<div class="col-sm-2">
+			    <select class="form-control input-sm" name="bumen" id="bumen_id" onchange="changeyewuyuan(this)">
+					<s:iterator value="bumens">
+						<option value='<s:property value="bmId"/>'><s:property value="bmMingcheng"/></option>
+					</s:iterator>
+			    </select>
+			</div>
+			<div class="col-sm-2">
+			    <select class="form-control input-sm" name="yewuyuan" id="yewuyuan_id">
+					<s:iterator value="yewuyuans" var="thisyewuyuan">
+						<option value='<s:property value="ywyId"/>'><s:property value="ywyXingming"/></option>
+					</s:iterator>
+				</select>
+			</div>
 		</div>
 		
 		<div class="form-group">
@@ -217,12 +237,18 @@
 	var originalShuliang = '<s:property value="yewu.shuliang"/>';
 	var orginalGuanggaoneirong = '${yewu.guanggaoneirong}';
 
+	var orginalYewuyuan = '<s:property value="#request.yewuyuanID"/>';
+	var orginalBumen = '<s:property value="#request.bumenID"/>';
+
 	var nameValid = true;
 
 	$(document).ready(function(){
 		$("#led_id").val(originalLed);
 		$("#industry_id").val(originalIndustry);
 		$("#industryclassifyid").val(originalIndustyClassify);
+
+		$("#bumen_id").val(orginalBumen);
+		$("#yewuyuan_id").val(orginalYewuyuan);
 //		$("#state").val(originalstate);
 //		alert(originalIndustyClassify);
 		//保存按钮的点击事件
@@ -230,6 +256,7 @@
 	//		alert('<s:text name="%{#request.kaishishijian}"/>');
 			if(nameValid){
 				if($("select[name='ledId']").val()==originalLed &&
+						$("select[name='yewuyuan']").val()==orginalYewuyuan &&
 						$("select[name='industryId']").val()==originalIndustry &&
 						$("input[name='shichang']").val()==originalShichang &&
 						$("input[name='pinci']").val()==originalPinci &&
@@ -277,6 +304,25 @@
 	  		}
 	  });	
 	};
+
+	//业务员二级联动
+	function changeyewuyuan(obj) {
+		var selectbumenid = obj.value;
+		$.ajax({
+	  		type:"post",
+	  		dataType:"json",
+	  		url:"fillYewuyuanList.action",
+	  		data: { selectbumenid: selectbumenid },//提交参数
+	  		success:function(data){ 	
+	  			var jsonData = data.yewuyuanback;
+	  			document.getElementById("yewuyuan_id").innerHTML="";
+	  			for(var i=0, n = jsonData.length;i<n;i++){
+	  				$("#yewuyuan_id").append("<option  value='"+jsonData[i].ywyId+"'>"+jsonData[i].ywyXingming+"</option>");		
+	  			}
+	  		}
+	  });
+	}
+	
 	function goBack(){
 		if(confirm("您确定要放弃相关操作，返回到订单列表中吗？")){
 			location.replace('dingdanguanli');

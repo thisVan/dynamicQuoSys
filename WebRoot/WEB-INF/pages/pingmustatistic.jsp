@@ -12,7 +12,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%! String url = "jdbc:mysql://localhost:3306/led_statistic?useUnicode=true&characterEncoding=GBK"; %>
 <html>
 <head>
-<base href="<%=basePath%>">
 
 
 <meta http-equiv="pragma" content="no-cache">

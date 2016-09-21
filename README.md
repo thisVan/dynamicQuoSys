@@ -1,2 +1,4 @@
-# dynamicQuoSys
-a dynamic quote system, according to the full screen rate of the screen and historical data to guide the salesman to price the order.
+"# dynamicQuoSys" 
+#2016年9月10日22:12:22 添加了认刊书审核功能，已经整合完毕
+#2016年9月10日23:05:47 修改认刊书审核页面的表格显示方式，改为bootstrap-table风格
+#2016年9月14日17:30:47 整合版本
